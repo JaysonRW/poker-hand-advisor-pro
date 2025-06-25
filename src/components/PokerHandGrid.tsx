@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { pokerHandsData } from '@/data/pokerHands';
@@ -106,7 +105,7 @@ export const PokerHandGrid = () => {
                 >
                   <div className="text-center">
                     <div className="font-bold">{handString}</div>
-                    <div className="text-xs opacity-90">
+                    <div className="text-xs opacity-90 hidden sm:block">
                       {handData.winRate.toFixed(1)}%
                     </div>
                   </div>
