@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,15 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				poker: {
+					table: 'hsl(var(--poker-table))',
+					felt: 'hsl(var(--poker-felt))',
+					premium: 'hsl(var(--poker-premium))',
+					strong: 'hsl(var(--poker-strong))',
+					situational: 'hsl(var(--poker-situational))',
+					weak: 'hsl(var(--poker-weak))',
+					fold: 'hsl(var(--poker-fold))'
 				}
 			},
 			borderRadius: {
