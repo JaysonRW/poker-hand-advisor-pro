@@ -1,5 +1,5 @@
-
 import { PokerHandGrid } from '@/components/PokerHandGrid';
+import PokerHandsFooter from '@/components/PokerHandsFooter';
 
 const Index = () => {
   return (
@@ -7,7 +7,7 @@ const Index = () => {
       <div className="container mx-auto py-8">
         <PokerHandGrid />
       </div>
-      
+      <PokerHandsFooter />
       {/* Footer */}
       <footer className="mt-12 text-center text-green-300 text-sm pb-8">
         <div className="max-w-4xl mx-auto px-4">
