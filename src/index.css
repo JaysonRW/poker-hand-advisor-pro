@@ -105,13 +105,31 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground min-h-screen;
+    background: linear-gradient(135deg, #183a2c 0%, #1a3a4a 100%);
+    position: relative;
+  }
+}
+
+@media (min-width: 640px) {
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="white" fill-opacity="0.01"/><g opacity="0.08"><circle cx="10" cy="10" r="1.5" fill="white"/><circle cx="50" cy="50" r="1.5" fill="white"/><circle cx="90" cy="90" r="1.5" fill="white"/><circle cx="90" cy="10" r="1.5" fill="white"/><circle cx="10" cy="90" r="1.5" fill="white"/></g></svg>');
+    background-repeat: repeat;
+    background-size: 120px 120px;
+    opacity: 0.5;
   }
 }
 
 /* Poker specific styles */
 .poker-table {
   background: hsl(var(--poker-table));
+  position: relative;
+  z-index: 1;
 }
 
 .poker-felt {

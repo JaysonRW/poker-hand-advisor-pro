@@ -7,6 +7,9 @@ import { useState, useEffect } from "react";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { AccessGate } from "./components/AccessGate";
+import GlossaryList from './components/GlossaryList';
+import Navbar from './components/Navbar';
+import SituationSimulator from './components/SituationSimulator';
 
 const queryClient = new QueryClient();
 
@@ -45,11 +48,16 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Navbar />
+          <div className="pt-16">
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/glossario" element={<GlossaryList />} />
+              <Route path="/simulador" element={<SituationSimulator />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
