@@ -1,0 +1,233 @@
+export const ptBR = {
+  navbar: {
+    title: 'Poker Hand Advisor',
+    titleSuffix: 'Pro',
+    menuItems: {
+      table: 'Tabela',
+      glossary: 'Glossário',
+      simulator: 'Simulador',
+    },
+    closeMenu: 'Fechar Menu',
+  },
+  pokerGrid: {
+    title: 'Texas Hold\'em Starting Hands Chart',
+    subtitle: 'Clique em qualquer mão para ver detalhes e recomendações',
+    filters: {
+      all: 'Todas',
+      premium: 'Premium',
+      strong: 'Forte',
+      situational: 'Situacional',
+      weak: 'Fraca',
+      fold: 'Fold',
+    },
+    legend: {
+      premium: 'Premium (85%+)',
+      strong: 'Forte (70-85%)',
+      situational: 'Situacional (55-70%)',
+      weak: 'Fraca (40-55%)',
+      fold: 'Fold (<40%)',
+    },
+    positions: {
+      title: 'Legenda de Posições:',
+      ep: 'EP',
+      epFull: 'Early Position (UTG, UTG+1)',
+      mp: 'MP',
+      mpFull: 'Middle Position (MP1, MP2)',
+      lp: 'LP',
+      lpFull: 'Late Position (CO, BTN)',
+      blinds: 'Blinds',
+      blindsFull: 'SB, BB',
+    },
+    pagination: {
+      page: 'Página',
+      of: 'de',
+    },
+  },
+  handModal: {
+    proAnalysis: 'Pro Analysis',
+    winRate: 'Win Rate',
+    recommendation: 'Recomendação',
+    category: 'Categoria',
+    categories: {
+      premium: 'Premium',
+      strong: 'Forte',
+      situational: 'Situacional',
+      weak: 'Fraca',
+      fold: 'Fold',
+      unknown: 'Desconhecida',
+    },
+    positions: {
+      title: 'Posições Recomendadas',
+      none: 'Não recomendada em nenhuma posição',
+      earlyPosition: 'Early Position',
+      middlePosition: 'Middle Position',
+      latePosition: 'Late Position',
+      blinds: 'Blinds',
+    },
+    tips: {
+      beginner: 'Dica - Iniciante',
+      intermediate: 'Dica - Intermediário',
+      beginnerBadge: 'Beginner',
+      advancedBadge: 'Advanced',
+    },
+    strategicInfo: {
+      title: 'Informações Estratégicas',
+      strength: 'Força da Mão',
+      strengthLevels: {
+        extremelyStrong: 'Extremely Strong',
+        veryStrong: 'Very Strong',
+        moderate: 'Moderate',
+        weak: 'Weak',
+        veryWeak: 'Very Weak',
+      },
+      frequency: 'Frequência de Jogo',
+      frequencyAdvice: {
+        raise: 'Sempre jogue agressivamente',
+        call: 'Jogue com cautela, principalmente em posição',
+        fold: 'Evite jogar na maioria das situações',
+      },
+      stackSize: 'Stack Size Ideal',
+      stackSizeAdvice: {
+        premium: 'Qualquer stack size',
+        strong: 'Medium a deep stacks',
+        situational: 'Deep stacks para implied odds',
+      },
+    },
+    badges: {
+      strength: 'Strength',
+      frequency: 'Frequency',
+      stack: 'Stack',
+    },
+  },
+  glossary: {
+    title: 'Glossário de Poker',
+    subtitle: 'Termos essenciais para dominar o poker',
+    backButton: '← Voltar para Tabela',
+    termBadge: 'Term',
+    terms: {
+      check: {
+        term: 'Check',
+        description: 'Passar a vez sem apostar. Só é possível se ninguém apostou antes de você na rodada.',
+      },
+      bet: {
+        term: 'Bet',
+        description: 'Ser o primeiro a colocar fichas no pote em uma rodada de apostas.',
+      },
+      call: {
+        term: 'Call',
+        description: 'Igualar o valor da aposta ou aumento mais recente para continuar na mão.',
+      },
+      raise: {
+        term: 'Raise',
+        description: 'Aumentar o valor da aposta atual, forçando os outros a pagar mais ou desistir.',
+      },
+      fold: {
+        term: 'Fold',
+        description: 'Desistir da mão, perdendo as fichas já apostadas.',
+      },
+      allin: {
+        term: 'All-in',
+        description: 'Apostar todas as suas fichas de uma só vez.',
+      },
+      pot: {
+        term: 'Pot',
+        description: 'O total de fichas apostadas em uma mão, que o vencedor leva.',
+      },
+      chips: {
+        term: 'Chips',
+        description: 'Discos que representam o dinheiro no jogo.',
+      },
+      stack: {
+        term: 'Stack',
+        description: 'Total de fichas que um jogador tem à sua frente.',
+      },
+      kicker: {
+        term: 'Kicker',
+        description: 'Carta de desempate usada quando jogadores têm mãos iguais.',
+      },
+      showdown: {
+        term: 'Showdown',
+        description: 'Momento em que os jogadores mostram as cartas para definir o vencedor.',
+      },
+      bankroll: {
+        term: 'Bankroll',
+        description: 'Montante total reservado para jogar poker, separado das finanças pessoais.',
+      },
+      blinds: {
+        term: 'Blinds',
+        description: 'Apostas obrigatórias feitas por dois jogadores antes das cartas serem distribuídas.',
+      },
+      smallBlind: {
+        term: 'Small Blind',
+        description: 'Primeiro jogador à esquerda do botão, faz a aposta obrigatória menor.',
+      },
+      bigBlind: {
+        term: 'Big Blind',
+        description: 'Jogador à esquerda do Small Blind, faz a aposta obrigatória completa.',
+      },
+      button: {
+        term: 'Button',
+        description: 'Marcador que indica o dealer da rodada, posição mais vantajosa.',
+      },
+      utg: {
+        term: 'UTG',
+        description: 'Under the Gun: primeiro a agir antes do flop, posição difícil.',
+      },
+      preFlop: {
+        term: 'Pre-Flop',
+        description: 'Primeira rodada de apostas, antes das cartas comunitárias.',
+      },
+      flop: {
+        term: 'Flop',
+        description: 'As três primeiras cartas comunitárias abertas na mesa.',
+      },
+      turn: {
+        term: 'Turn',
+        description: 'A quarta carta comunitária aberta na mesa.',
+      },
+      river: {
+        term: 'River',
+        description: 'A quinta e última carta comunitária aberta na mesa.',
+      },
+    },
+  },
+  simulator: {
+    title: 'Simulador de Situação',
+    subtitle: 'Configure sua situação e receba recomendações profissionais',
+    gameType: 'Tipo de Jogo',
+    gameTypes: {
+      cash: 'Cash Game',
+      tournament: 'Torneio',
+      sitngo: 'Sit&Go',
+    },
+    position: 'Posição',
+    positions: {
+      UTG: 'UTG (Under the Gun)',
+      MP: 'MP (Middle Position)',
+      CO: 'CO (Cutoff)',
+      BTN: 'BTN (Button)',
+      SB: 'SB (Small Blind)',
+      BB: 'BB (Big Blind)',
+    },
+    stack: 'Stack (BB)',
+    players: 'Jogadores na Mesa',
+    startingHand: 'Cartas Iniciais (ex: AKs, 99, QJo)',
+    simulateButton: 'Simular Situação',
+    result: {
+      proTip: 'Pro Tip',
+      action: 'Ação Recomendada:',
+    },
+  },
+  index: {
+    glossaryButton: 'Glossário de Poker',
+    footer: {
+      title: 'Poker Hand Chart',
+      subtitle: 'Ferramenta de apoio para decisões em Texas Hold\'em',
+      disclaimer: 'Baseado em simulações matemáticas e estratégias profissionais. Use como referência e sempre considere fatores específicos da mesa.',
+      developedBy: 'Desenvolvido por',
+    },
+  },
+  common: {
+    loading: 'Carregando...',
+  },
+};

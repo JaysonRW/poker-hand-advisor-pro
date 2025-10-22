@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const positions = [
   { value: 'UTG', label: 'UTG (Under the Gun)' },
@@ -25,6 +26,7 @@ const validHands = [
 ];
 
 const SituationSimulator: React.FC = () => {
+  const { t } = useTranslation();
   const [position, setPosition] = useState('UTG');
   const [stack, setStack] = useState(50); // em big blinds
   const [stackInput, setStackInput] = useState('50');
@@ -86,10 +88,10 @@ const SituationSimulator: React.FC = () => {
       <div className="text-center mb-8">
         <h2 className="text-title font-title text-foreground mb-2 flex items-center justify-center gap-2">
           <span className="suit-spades"></span>
-          Simulador de Situação
+          {t('simulator.title')}
           <span className="suit-hearts"></span>
         </h2>
-        <p className="text-muted-foreground font-body">Configure sua situação e receba recomendações profissionais</p>
+        <p className="text-muted-foreground font-body">{t('simulator.subtitle')}</p>
       </div>
       
       <div className="relative">
@@ -101,23 +103,23 @@ const SituationSimulator: React.FC = () => {
             <div className="flex flex-col">
               <label className="block text-foreground mb-2 font-heading flex items-center gap-2">
                 <span className="suit-diamonds"></span>
-                Tipo de Jogo
+                {t('simulator.gameType')}
               </label>
               <select value={gameType} onChange={e => setGameType(e.target.value)} className="w-full rounded-lg px-4 py-4 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input text-lg min-h-[48px]">
-                {gameTypes.map(gt => <option key={gt.value} value={gt.value}>{gt.label}</option>)}
+                {gameTypes.map(gt => <option key={gt.value} value={gt.value}>{t(`simulator.gameTypes.${gt.value}`)}</option>)}
               </select>
             </div>
             <div className="flex flex-col">
               <label className="block text-foreground mb-2 font-heading flex items-center gap-2">
                 <span className="suit-clubs"></span>
-                Posição
+                {t('simulator.position')}
               </label>
               <select value={position} onChange={e => setPosition(e.target.value)} className="w-full rounded-lg px-4 py-4 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input text-lg min-h-[48px]">
-                {positions.map(pos => <option key={pos.value} value={pos.value}>{pos.label}</option>)}
+                {positions.map(pos => <option key={pos.value} value={pos.value}>{t(`simulator.positions.${pos.value}`)}</option>)}
               </select>
             </div>
             <div className="flex flex-col">
-              <label className="block text-foreground mb-2 font-heading">Stack (BB)</label>
+              <label className="block text-foreground mb-2 font-heading">{t('simulator.stack')}</label>
               <div className="flex gap-2 mb-3 flex-wrap">
                 {stackOptions.map(opt => (
                   <button 
@@ -144,7 +146,7 @@ const SituationSimulator: React.FC = () => {
               />
             </div>
             <div className="flex flex-col">
-              <label className="block text-foreground mb-2 font-heading">Jogadores na Mesa</label>
+              <label className="block text-foreground mb-2 font-heading">{t('simulator.players')}</label>
               <input 
                 type="number" 
                 min={2} 
@@ -157,7 +159,7 @@ const SituationSimulator: React.FC = () => {
             <div className="sm:col-span-2 flex flex-col">
               <label className="block text-foreground mb-2 font-heading flex items-center gap-2">
                 <span className="suit-spades"></span>
-                Cartas Iniciais (ex: AKs, 99, QJo)
+                {t('simulator.startingHand')}
               </label>
               <div className="relative">
                 <input
@@ -192,7 +194,7 @@ const SituationSimulator: React.FC = () => {
           >
             <span className="flex items-center justify-center gap-2">
               <span className="suit-hearts"></span>
-              Simular Situação
+              {t('simulator.simulateButton')}
               <span className="suit-diamonds"></span>
             </span>
           </button>
@@ -200,11 +202,11 @@ const SituationSimulator: React.FC = () => {
         {result && (
           <div className="mt-8 p-6 rounded-xl bg-gradient-card border border-secondary/30 shadow-neumorphism text-center card-flip">
             <div className="flex items-center justify-center gap-2 mb-4">
-              <span className="pro-tip-badge">Pro Tip</span>
+              <span className="pro-tip-badge">{t('simulator.result.proTip')}</span>
               <span className="text-2xl">🎯</span>
             </div>
             <div className="text-xl font-heading text-foreground mb-3">
-              Ação Recomendada: <span className="text-accent font-title">{result.action}</span>
+              {t('simulator.result.action')} <span className="text-accent font-title">{result.action}</span>
             </div>
             <div className="text-muted-foreground font-body leading-relaxed">{result.explanation}</div>
             

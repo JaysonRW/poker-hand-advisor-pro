@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-
-const navItems = [
-  { to: '/', label: 'Tabela' },
-  { to: '/glossario', label: 'Glossário' },
-  { to: '/simulador', label: 'Simulador' },
-];
+import { useTranslation } from '@/hooks/useTranslation';
+import { LanguageToggle } from './LanguageToggle';
 
 const Navbar: React.FC = () => {
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { t } = useTranslation();
+
+  const navItems = [
+    { to: '/', label: t('navbar.menuItems.table') },
+    { to: '/glossario', label: t('navbar.menuItems.glossary') },
+    { to: '/simulador', label: t('navbar.menuItems.simulator') },
+  ];
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -25,12 +28,13 @@ const Navbar: React.FC = () => {
             <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-secondary rounded-full animate-pulse"></div>
           </div>
           <span className="hidden sm:inline text-secondary font-title tracking-wide whitespace-nowrap text-lg">
-            Poker Hand Advisor <span className="text-accent">Pro</span>
+            {t('navbar.title')} <span className="text-accent">{t('navbar.titleSuffix')}</span>
           </span>
         </div>
 
         {/* Desktop Menu */}
-        <div className="hidden sm:flex gap-1 sm:gap-4">
+        <div className="hidden sm:flex gap-1 sm:gap-4 items-center">
+          <LanguageToggle />
           {navItems.map(item => (
             <Link
               key={item.to}
@@ -68,7 +72,7 @@ const Navbar: React.FC = () => {
               <div className="flex items-center justify-center gap-3 mb-4">
                 <img src="/poker-logo.png" alt="Logo" className="h-12 w-12 shadow-glow" />
                 <span className="text-secondary font-title text-xl">
-                  Poker Hand Advisor <span className="text-accent">Pro</span>
+                  {t('navbar.title')} <span className="text-accent">{t('navbar.titleSuffix')}</span>
                 </span>
               </div>
             </div>
@@ -94,11 +98,15 @@ const Navbar: React.FC = () => {
               ))}
             </div>
 
+            <div className="mt-6">
+              <LanguageToggle />
+            </div>
+
             <button
               onClick={toggleMobileMenu}
               className="mt-8 px-6 py-3 rounded-xl bg-gradient-accent text-accent-foreground font-heading shadow-glow-accent hover:scale-105 transition-all duration-200"
             >
-              Fechar Menu
+              {t('navbar.closeMenu')}
             </button>
           </div>
         </div>

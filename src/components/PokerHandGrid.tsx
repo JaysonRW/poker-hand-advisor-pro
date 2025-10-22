@@ -5,10 +5,12 @@ import { PokerHand } from '@/types/poker';
 import { HandDetailsModal } from './HandDetailsModal';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const ranks = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'];
 
 export const PokerHandGrid = () => {
+  const { t } = useTranslation();
   const [selectedHand, setSelectedHand] = useState<PokerHand | null>(null);
   const [categoryFilter, setCategoryFilter] = useState<string>('');
   const [currentPage, setCurrentPage] = useState(0);
@@ -76,19 +78,19 @@ export const PokerHandGrid = () => {
   return (
     <div className="w-full max-w-6xl mx-auto p-4">
       <div className="mb-6 text-center">
-        <h1 className="text-title font-title text-foreground mb-2">Texas Hold'em Starting Hands Chart</h1>
-        <p className="text-muted-foreground font-body">Clique em qualquer mão para ver detalhes e recomendações</p>
+        <h1 className="text-title font-title text-foreground mb-2">{t('pokerGrid.title')}</h1>
+        <p className="text-muted-foreground font-body">{t('pokerGrid.subtitle')}</p>
       </div>
       {/* Filtro de Categoria */}
       <div className="mb-4 flex justify-center">
         <div className="w-full max-w-2xl flex flex-wrap sm:flex-nowrap gap-2 sm:gap-0 overflow-x-auto overflow-y-hidden px-1 scrollbar-hide">
           <ToggleGroup type="single" value={categoryFilter} onValueChange={setCategoryFilter} className="w-full flex flex-wrap sm:flex-nowrap justify-center">
-            <ToggleGroupItem value="" className="mx-0 sm:mx-1 mb-2 sm:mb-0 px-3 sm:px-4 py-2 rounded-lg font-heading text-foreground bg-card/80 data-[state=on]:bg-gradient-primary data-[state=on]:text-primary-foreground data-[state=on]:shadow-glow data-[state=on]:scale-105 transition-all duration-200 text-sm sm:text-base min-w-[90px]">Todas</ToggleGroupItem>
-            <ToggleGroupItem value="premium" className="mx-0 sm:mx-1 mb-2 sm:mb-0 px-3 sm:px-4 py-2 rounded-lg font-heading text-foreground bg-gradient-secondary/80 data-[state=on]:bg-gradient-secondary data-[state=on]:text-primary data-[state=on]:shadow-glow data-[state=on]:scale-105 transition-all duration-200 text-sm sm:text-base min-w-[90px]">Premium</ToggleGroupItem>
-            <ToggleGroupItem value="strong" className="mx-0 sm:mx-1 mb-2 sm:mb-0 px-3 sm:px-4 py-2 rounded-lg font-heading text-foreground bg-primary/80 data-[state=on]:bg-gradient-primary data-[state=on]:text-primary-foreground data-[state=on]:shadow-glow data-[state=on]:scale-105 transition-all duration-200 text-sm sm:text-base min-w-[90px]">Forte</ToggleGroupItem>
-            <ToggleGroupItem value="situational" className="mx-0 sm:mx-1 mb-2 sm:mb-0 px-3 sm:px-4 py-2 rounded-lg font-heading text-foreground bg-gradient-accent/80 data-[state=on]:bg-gradient-accent data-[state=on]:text-accent-foreground data-[state=on]:shadow-glow-accent data-[state=on]:scale-105 transition-all duration-200 text-sm sm:text-base min-w-[90px]">Situacional</ToggleGroupItem>
-            <ToggleGroupItem value="weak" className="mx-0 sm:mx-1 mb-2 sm:mb-0 px-3 sm:px-4 py-2 rounded-lg font-heading text-foreground bg-muted/80 data-[state=on]:bg-muted data-[state=on]:text-muted-foreground data-[state=on]:shadow-neumorphism data-[state=on]:scale-105 transition-all duration-200 text-sm sm:text-base min-w-[90px]">Fraca</ToggleGroupItem>
-            <ToggleGroupItem value="fold" className="mx-0 sm:mx-1 mb-2 sm:mb-0 px-3 sm:px-4 py-2 rounded-lg font-heading text-foreground bg-destructive/80 data-[state=on]:bg-destructive data-[state=on]:text-destructive-foreground data-[state=on]:shadow-neumorphism data-[state=on]:scale-105 transition-all duration-200 text-sm sm:text-base min-w-[90px]">Fold</ToggleGroupItem>
+            <ToggleGroupItem value="" className="mx-0 sm:mx-1 mb-2 sm:mb-0 px-3 sm:px-4 py-2 rounded-lg font-heading text-foreground bg-card/80 data-[state=on]:bg-gradient-primary data-[state=on]:text-primary-foreground data-[state=on]:shadow-glow data-[state=on]:scale-105 transition-all duration-200 text-sm sm:text-base min-w-[90px]">{t('pokerGrid.filters.all')}</ToggleGroupItem>
+            <ToggleGroupItem value="premium" className="mx-0 sm:mx-1 mb-2 sm:mb-0 px-3 sm:px-4 py-2 rounded-lg font-heading text-foreground bg-gradient-secondary/80 data-[state=on]:bg-gradient-secondary data-[state=on]:text-primary data-[state=on]:shadow-glow data-[state=on]:scale-105 transition-all duration-200 text-sm sm:text-base min-w-[90px]">{t('pokerGrid.filters.premium')}</ToggleGroupItem>
+            <ToggleGroupItem value="strong" className="mx-0 sm:mx-1 mb-2 sm:mb-0 px-3 sm:px-4 py-2 rounded-lg font-heading text-foreground bg-primary/80 data-[state=on]:bg-gradient-primary data-[state=on]:text-primary-foreground data-[state=on]:shadow-glow data-[state=on]:scale-105 transition-all duration-200 text-sm sm:text-base min-w-[90px]">{t('pokerGrid.filters.strong')}</ToggleGroupItem>
+            <ToggleGroupItem value="situational" className="mx-0 sm:mx-1 mb-2 sm:mb-0 px-3 sm:px-4 py-2 rounded-lg font-heading text-foreground bg-gradient-accent/80 data-[state=on]:bg-gradient-accent data-[state=on]:text-accent-foreground data-[state=on]:shadow-glow-accent data-[state=on]:scale-105 transition-all duration-200 text-sm sm:text-base min-w-[90px]">{t('pokerGrid.filters.situational')}</ToggleGroupItem>
+            <ToggleGroupItem value="weak" className="mx-0 sm:mx-1 mb-2 sm:mb-0 px-3 sm:px-4 py-2 rounded-lg font-heading text-foreground bg-muted/80 data-[state=on]:bg-muted data-[state=on]:text-muted-foreground data-[state=on]:shadow-neumorphism data-[state=on]:scale-105 transition-all duration-200 text-sm sm:text-base min-w-[90px]">{t('pokerGrid.filters.weak')}</ToggleGroupItem>
+            <ToggleGroupItem value="fold" className="mx-0 sm:mx-1 mb-2 sm:mb-0 px-3 sm:px-4 py-2 rounded-lg font-heading text-foreground bg-destructive/80 data-[state=on]:bg-destructive data-[state=on]:text-destructive-foreground data-[state=on]:shadow-neumorphism data-[state=on]:scale-105 transition-all duration-200 text-sm sm:text-base min-w-[90px]">{t('pokerGrid.filters.fold')}</ToggleGroupItem>
           </ToggleGroup>
         </div>
       </div>
@@ -96,23 +98,23 @@ export const PokerHandGrid = () => {
       <div className="mb-6 flex flex-wrap justify-center gap-4 text-sm">
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 hand-premium rounded shadow-glow"></div>
-          <span className="text-foreground font-body">Premium (85%+)</span>
+          <span className="text-foreground font-body">{t('pokerGrid.legend.premium')}</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 hand-strong rounded shadow-neumorphism"></div>
-          <span className="text-foreground font-body">Forte (70-85%)</span>
+          <span className="text-foreground font-body">{t('pokerGrid.legend.strong')}</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 hand-situational rounded shadow-glow-accent"></div>
-          <span className="text-foreground font-body">Situacional (55-70%)</span>
+          <span className="text-foreground font-body">{t('pokerGrid.legend.situational')}</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 hand-weak rounded shadow-neumorphism"></div>
-          <span className="text-foreground font-body">Fraca (40-55%)</span>
+          <span className="text-foreground font-body">{t('pokerGrid.legend.weak')}</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 hand-fold rounded shadow-neumorphism"></div>
-          <span className="text-foreground font-body">Fold (&lt;40%)</span>
+          <span className="text-foreground font-body">{t('pokerGrid.legend.fold')}</span>
         </div>
       </div>
       {/* Grid */}
@@ -159,7 +161,7 @@ export const PokerHandGrid = () => {
             </button>
             
             <div className="flex items-center gap-2">
-              <span className="text-foreground font-heading">Página {currentPage + 1} de {totalPages}</span>
+              <span className="text-foreground font-heading">{t('pokerGrid.pagination.page')} {currentPage + 1} {t('pokerGrid.pagination.of')} {totalPages}</span>
               <div className="flex gap-1">
                 {Array.from({ length: totalPages }).map((_, index) => (
                   <div
@@ -218,12 +220,12 @@ export const PokerHandGrid = () => {
       
       {/* Position Guide */}
       <div className="mt-6 text-center text-muted-foreground text-sm">
-        <div className="mb-2 font-heading">Legenda de Posições:</div>
+        <div className="mb-2 font-heading">{t('pokerGrid.positions.title')}</div>
         <div className="flex flex-wrap justify-center gap-4">
-          <span className="font-body"><strong>EP:</strong> Early Position (UTG, UTG+1)</span>
-          <span className="font-body"><strong>MP:</strong> Middle Position (MP1, MP2)</span>
-          <span className="font-body"><strong>LP:</strong> Late Position (CO, BTN)</span>
-          <span className="font-body"><strong>Blinds:</strong> SB, BB</span>
+          <span className="font-body"><strong>{t('pokerGrid.positions.ep')}:</strong> {t('pokerGrid.positions.epFull')}</span>
+          <span className="font-body"><strong>{t('pokerGrid.positions.mp')}:</strong> {t('pokerGrid.positions.mpFull')}</span>
+          <span className="font-body"><strong>{t('pokerGrid.positions.lp')}:</strong> {t('pokerGrid.positions.lpFull')}</span>
+          <span className="font-body"><strong>{t('pokerGrid.positions.blinds')}:</strong> {t('pokerGrid.positions.blindsFull')}</span>
         </div>
       </div>
       

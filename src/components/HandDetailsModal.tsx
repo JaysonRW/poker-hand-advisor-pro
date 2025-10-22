@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PokerHand } from '@/types/poker';
 import { TrendingUp, Users, Target, Lightbulb, GraduationCap } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface HandDetailsModalProps {
   hand: PokerHand | null;
@@ -12,6 +13,8 @@ interface HandDetailsModalProps {
 }
 
 export const HandDetailsModal: React.FC<HandDetailsModalProps> = ({ hand, onClose }) => {
+  const { t } = useTranslation();
+  
   if (!hand) return null;
 
   const getRecommendationColor = (recommendation: string) => {
@@ -25,12 +28,22 @@ export const HandDetailsModal: React.FC<HandDetailsModalProps> = ({ hand, onClos
 
   const getCategoryText = (category: string) => {
     switch (category) {
-      case 'premium': return 'Premium';
-      case 'strong': return 'Forte';
-      case 'situational': return 'Situacional';
-      case 'weak': return 'Fraca';
-      case 'fold': return 'Fold';
-      default: return 'Desconhecida';
+      case 'premium': return t('handModal.categories.premium');
+      case 'strong': return t('handModal.categories.strong');
+      case 'situational': return t('handModal.categories.situational');
+      case 'weak': return t('handModal.categories.weak');
+      case 'fold': return t('handModal.categories.fold');
+      default: return t('handModal.categories.unknown');
+    }
+  };
+
+  const getPositionTranslated = (position: string) => {
+    switch (position) {
+      case 'Early Position': return t('handModal.positions.earlyPosition');
+      case 'Middle Position': return t('handModal.positions.middlePosition');
+      case 'Late Position': return t('handModal.positions.latePosition');
+      case 'Blinds': return t('handModal.positions.blinds');
+      default: return position;
     }
   };
 
@@ -44,7 +57,7 @@ export const HandDetailsModal: React.FC<HandDetailsModalProps> = ({ hand, onClos
             <span className="suit-hearts text-2xl"></span>
           </DialogTitle>
           <div className="flex items-center justify-center gap-2 mt-2">
-            <span className="pro-tip-badge">Pro Analysis</span>
+            <span className="pro-tip-badge">{t('handModal.proAnalysis')}</span>
             <span className="text-2xl">🎯</span>
           </div>
         </DialogHeader>
@@ -61,7 +74,7 @@ export const HandDetailsModal: React.FC<HandDetailsModalProps> = ({ hand, onClos
                 <div className="text-3xl font-title text-accent mb-2">
                   {hand.winRate.toFixed(1)}%
                 </div>
-                <div className="text-sm text-muted-foreground font-body">Win Rate</div>
+                <div className="text-sm text-muted-foreground font-body">{t('handModal.winRate')}</div>
               </CardContent>
             </Card>
             
@@ -91,7 +104,7 @@ export const HandDetailsModal: React.FC<HandDetailsModalProps> = ({ hand, onClos
                 <div className="text-xl font-heading text-primary mb-2">
                   {getCategoryText(hand.category)}
                 </div>
-                <div className="text-sm text-muted-foreground font-body">Categoria</div>
+                <div className="text-sm text-muted-foreground font-body">{t('handModal.category')}</div>
               </CardContent>
             </Card>
           </div>
@@ -102,7 +115,7 @@ export const HandDetailsModal: React.FC<HandDetailsModalProps> = ({ hand, onClos
               <CardTitle className="text-lg text-foreground flex items-center gap-2 font-heading">
                 <Users size={20} className="text-primary" />
                 <span className="suit-spades"></span>
-                Posições Recomendadas
+                {t('handModal.positions.title')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -110,12 +123,12 @@ export const HandDetailsModal: React.FC<HandDetailsModalProps> = ({ hand, onClos
                 <div className="flex flex-wrap gap-3">
                   {hand.positions.map((position) => (
                     <Badge key={position} className="bg-gradient-primary text-primary-foreground border-0 px-4 py-2 font-heading">
-                      {position}
+                      {getPositionTranslated(position)}
                     </Badge>
                   ))}
                 </div>
               ) : (
-                <p className="text-destructive font-body">Não recomendada em nenhuma posição</p>
+                <p className="text-destructive font-body">{t('handModal.positions.none')}</p>
               )}
             </CardContent>
           </Card>
@@ -127,12 +140,12 @@ export const HandDetailsModal: React.FC<HandDetailsModalProps> = ({ hand, onClos
                 <CardTitle className="text-lg text-foreground flex items-center gap-2 font-heading">
                   <Lightbulb size={20} className="text-secondary" />
                   <span className="suit-diamonds"></span>
-                  Dica - Iniciante
+                  {t('handModal.tips.beginner')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex items-start gap-2">
-                  <span className="pro-tip-badge text-xs">Beginner</span>
+                  <span className="pro-tip-badge text-xs">{t('handModal.tips.beginnerBadge')}</span>
                   <p className="text-foreground font-body leading-relaxed">{hand.tips.beginner}</p>
                 </div>
               </CardContent>
@@ -143,12 +156,12 @@ export const HandDetailsModal: React.FC<HandDetailsModalProps> = ({ hand, onClos
                 <CardTitle className="text-lg text-foreground flex items-center gap-2 font-heading">
                   <GraduationCap size={20} className="text-accent" />
                   <span className="suit-clubs"></span>
-                  Dica - Intermediário
+                  {t('handModal.tips.intermediate')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex items-start gap-2">
-                  <span className="pro-tip-badge text-xs">Advanced</span>
+                  <span className="pro-tip-badge text-xs">{t('handModal.tips.advancedBadge')}</span>
                   <p className="text-foreground font-body leading-relaxed">{hand.tips.intermediate}</p>
                 </div>
               </CardContent>
@@ -160,41 +173,41 @@ export const HandDetailsModal: React.FC<HandDetailsModalProps> = ({ hand, onClos
             <CardHeader>
               <CardTitle className="text-lg text-foreground flex items-center gap-2 font-heading">
                 <span className="suit-hearts"></span>
-                Informações Estratégicas
+                {t('handModal.strategicInfo.title')}
                 <span className="suit-spades"></span>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center gap-2">
-                <span className="pro-tip-badge text-xs">Strength</span>
+                <span className="pro-tip-badge text-xs">{t('handModal.badges.strength')}</span>
                 <div className="text-sm text-foreground font-body">
-                  <strong>Força da Mão:</strong> {getCategoryText(hand.category)} 
-                  ({hand.winRate >= 85 ? 'Extremely Strong' : 
-                    hand.winRate >= 70 ? 'Very Strong' : 
-                    hand.winRate >= 55 ? 'Moderate' : 
-                    hand.winRate >= 40 ? 'Weak' : 'Very Weak'})
+                  <strong>{t('handModal.strategicInfo.strength')}:</strong> {getCategoryText(hand.category)} 
+                  ({hand.winRate >= 85 ? t('handModal.strategicInfo.strengthLevels.extremelyStrong') : 
+                    hand.winRate >= 70 ? t('handModal.strategicInfo.strengthLevels.veryStrong') : 
+                    hand.winRate >= 55 ? t('handModal.strategicInfo.strengthLevels.moderate') : 
+                    hand.winRate >= 40 ? t('handModal.strategicInfo.strengthLevels.weak') : t('handModal.strategicInfo.strengthLevels.veryWeak')})
                 </div>
               </div>
               
               <div className="flex items-center gap-2">
-                <span className="pro-tip-badge text-xs">Frequency</span>
+                <span className="pro-tip-badge text-xs">{t('handModal.badges.frequency')}</span>
                 <div className="text-sm text-foreground font-body">
-                  <strong>Frequência de Jogo:</strong> {
-                    hand.recommendation === 'Raise' ? 'Sempre jogue agressivamente' :
-                    hand.recommendation === 'Call' ? 'Jogue com cautela, principalmente em posição' :
-                    'Evite jogar na maioria das situações'
+                  <strong>{t('handModal.strategicInfo.frequency')}:</strong> {
+                    hand.recommendation === 'Raise' ? t('handModal.strategicInfo.frequencyAdvice.raise') :
+                    hand.recommendation === 'Call' ? t('handModal.strategicInfo.frequencyAdvice.call') :
+                    t('handModal.strategicInfo.frequencyAdvice.fold')
                   }
                 </div>
               </div>
               
               {hand.positions.length > 0 && (
                 <div className="flex items-center gap-2">
-                  <span className="pro-tip-badge text-xs">Stack</span>
+                  <span className="pro-tip-badge text-xs">{t('handModal.badges.stack')}</span>
                   <div className="text-sm text-foreground font-body">
-                    <strong>Stack Size Ideal:</strong> {
-                      hand.category === 'premium' ? 'Qualquer stack size' :
-                      hand.category === 'strong' ? 'Medium a deep stacks' :
-                      'Deep stacks para implied odds'
+                    <strong>{t('handModal.strategicInfo.stackSize')}:</strong> {
+                      hand.category === 'premium' ? t('handModal.strategicInfo.stackSizeAdvice.premium') :
+                      hand.category === 'strong' ? t('handModal.strategicInfo.stackSizeAdvice.strong') :
+                      t('handModal.strategicInfo.stackSizeAdvice.situational')
                     }
                   </div>
                 </div>

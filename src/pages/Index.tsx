@@ -1,8 +1,10 @@
 import { PokerHandGrid } from '@/components/PokerHandGrid';
 import PokerHandsFooter from '@/components/PokerHandsFooter';
 import { Link } from 'react-router-dom';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const Index = () => {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen poker-table">
       <div className="container mx-auto py-4 md:py-8 px-2 md:px-4">
@@ -10,21 +12,20 @@ const Index = () => {
       </div>
       <PokerHandsFooter />
       <div className="flex justify-center mt-6 md:mt-8 px-4">
-        <Link to="/glossario" className="inline-block bg-gradient-secondary hover:bg-gradient-secondary/90 text-primary font-heading py-4 px-8 rounded-lg shadow-glow hover:shadow-glow transition-all duration-200 text-lg hover:scale-105 min-h-touch w-full max-w-sm text-center">Glossário de Poker</Link>
+        <Link to="/glossario" className="inline-block bg-gradient-secondary hover:bg-gradient-secondary/90 text-primary font-heading py-4 px-8 rounded-lg shadow-glow hover:shadow-glow transition-all duration-200 text-lg hover:scale-105 min-h-touch w-full max-w-sm text-center">{t('index.glossaryButton')}</Link>
       </div>
       {/* Footer */}
       <footer className="mt-12 text-center text-muted-foreground text-sm pb-8">
   <div className="max-w-4xl mx-auto px-4">
     <p className="mb-2 font-body">
-      <strong className="font-heading">Poker Hand Chart</strong> - Ferramenta de apoio para decisões em Texas Hold'em
+      <strong className="font-heading">{t('index.footer.title')}</strong> - {t('index.footer.subtitle')}
     </p>
     <p className="text-xs text-muted-foreground/80 font-body">
-      Baseado em simulações matemáticas e estratégias profissionais. 
-      Use como referência e sempre considere fatores específicos da mesa.
+      {t('index.footer.disclaimer')}
     </p>
 
     <div className="mt-4 text-xs text-muted-foreground/70 font-body">
-      Desenvolvido por{" "}
+      {t('index.footer.developedBy')}{" "}
       <a
         href="https://propagounegocios.com.br"
         target="_blank"

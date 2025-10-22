@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import GlossaryTerm from './GlossaryTerm';
-import { glossary } from './GlossaryData';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const GlossaryList: React.FC = () => {
-  const sortedGlossary = [...glossary].sort((a, b) => a.term.localeCompare(b.term));
+  const { t, locale } = useTranslation();
   const [expandedTerms, setExpandedTerms] = useState<Set<string>>(new Set());
+
+  const glossaryKeys = ['check', 'bet', 'call', 'raise', 'fold', 'allin', 'pot', 'chips', 'stack', 'kicker', 'showdown', 'bankroll', 'blinds', 'smallBlind', 'bigBlind', 'button', 'utg', 'preFlop', 'flop', 'turn', 'river'];
+  const sortedGlossary = glossaryKeys.map(key => ({
+    term: t(`glossary.terms.${key}.term`),
+    description: t(`glossary.terms.${key}.description`),
+  })).sort((a, b) => a.term.localeCompare(b.term));
 
   const toggleExpanded = (term: string) => {
     const newExpanded = new Set(expandedTerms);
@@ -23,17 +29,17 @@ const GlossaryList: React.FC = () => {
     <section className="w-full max-w-4xl mx-auto mt-12 px-4">
       <div className="flex justify-start mb-8">
         <Link to="/" className="inline-block bg-gradient-primary hover:bg-gradient-primary/90 text-primary-foreground font-heading py-3 px-6 rounded-lg shadow-glow transition-all duration-200 hover:scale-105">
-          ← Voltar para Tabela
+          {t('glossary.backButton')}
         </Link>
       </div>
       
       <div className="text-center mb-8">
         <h2 className="text-title font-title text-foreground mb-2 flex items-center justify-center gap-2">
           <span className="suit-spades"></span>
-          Glossário de Poker
+          {t('glossary.title')}
           <span className="suit-hearts"></span>
         </h2>
-        <p className="text-muted-foreground font-body">Termos essenciais para dominar o poker</p>
+        <p className="text-muted-foreground font-body">{t('glossary.subtitle')}</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -59,7 +65,7 @@ const GlossaryList: React.FC = () => {
                     <GlossaryTerm term={term} description={description} />
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="pro-tip-badge text-xs">Term</span>
+                    <span className="pro-tip-badge text-xs">{t('glossary.termBadge')}</span>
                     {isExpanded ? (
                       <ChevronUp className="text-accent" size={20} />
                     ) : (
