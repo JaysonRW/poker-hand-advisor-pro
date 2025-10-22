@@ -4,12 +4,14 @@ import { pokerHandsData } from '@/data/pokerHands';
 import { PokerHand } from '@/types/poker';
 import { HandDetailsModal } from './HandDetailsModal';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const ranks = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'];
 
 export const PokerHandGrid = () => {
   const [selectedHand, setSelectedHand] = useState<PokerHand | null>(null);
   const [categoryFilter, setCategoryFilter] = useState<string>('');
+  const [currentPage, setCurrentPage] = useState(0);
   
   const getHandString = (row: number, col: number): string => {
     const rank1 = ranks[row];
@@ -52,6 +54,23 @@ export const PokerHandGrid = () => {
     const handString = getHandString(row, col);
     const handData = getHandData(handString);
     setSelectedHand(handData);
+  };
+
+  // Mobile carousel logic
+  const handsPerPage = 6; // 2x3 grid for mobile
+  const totalPages = Math.ceil(ranks.length / 2); // Split into pages of 2 rows each
+
+  const getVisibleRanks = () => {
+    const startRow = currentPage * 2;
+    return ranks.slice(startRow, startRow + 2);
+  };
+
+  const nextPage = () => {
+    setCurrentPage((prev) => (prev + 1) % totalPages);
+  };
+
+  const prevPage = () => {
+    setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
   };
 
   return (
@@ -97,8 +116,9 @@ export const PokerHandGrid = () => {
         </div>
       </div>
       {/* Grid */}
-      <Card className="p-4 bg-gradient-card border-border shadow-neumorphism">
-        <div className="grid grid-cols-13 gap-1 max-w-4xl mx-auto">
+      <Card className="p-4 bg-gradient-card border border-border shadow-neumorphism">
+        {/* Desktop Grid */}
+        <div className="hidden md:grid grid-cols-13 gap-1 max-w-4xl mx-auto">
           {ranks.map((_, rowIndex) => 
             ranks.map((_, colIndex) => {
               const handString = getHandString(rowIndex, colIndex);
@@ -126,6 +146,73 @@ export const PokerHandGrid = () => {
               );
             })
           )}
+        </div>
+
+        {/* Mobile Carousel */}
+        <div className="md:hidden">
+          <div className="flex items-center justify-between mb-4">
+            <button
+              onClick={prevPage}
+              className="p-3 rounded-full bg-gradient-primary text-primary-foreground shadow-glow hover:scale-110 transition-all duration-200"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            
+            <div className="flex items-center gap-2">
+              <span className="text-foreground font-heading">Página {currentPage + 1} de {totalPages}</span>
+              <div className="flex gap-1">
+                {Array.from({ length: totalPages }).map((_, index) => (
+                  <div
+                    key={index}
+                    className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                      index === currentPage ? 'bg-gradient-secondary' : 'bg-muted'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+            
+            <button
+              onClick={nextPage}
+              className="p-3 rounded-full bg-gradient-primary text-primary-foreground shadow-glow hover:scale-110 transition-all duration-200"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-6 gap-2 max-w-sm mx-auto">
+            {getVisibleRanks().map((_, rowIndex) => 
+              ranks.map((_, colIndex) => {
+                const actualRowIndex = currentPage * 2 + rowIndex;
+                if (actualRowIndex >= ranks.length) return null;
+                
+                const handString = getHandString(actualRowIndex, colIndex);
+                const handData = getHandData(handString);
+                const colorClass = getCategoryColor(handData.category);
+                if (categoryFilter && handData.category !== categoryFilter) return null;
+                
+                return (
+                  <button
+                    key={`${actualRowIndex}-${colIndex}`}
+                    onClick={() => handleCellClick(actualRowIndex, colIndex)}
+                    className={`
+                      aspect-square flex flex-col items-center justify-center
+                      text-xs font-heading rounded transition-all duration-200
+                      hover:scale-105 hover:shadow-neumorphism cursor-pointer
+                      ${colorClass}
+                    `}
+                  >
+                    <div className="text-center">
+                      <div className="font-bold text-sm">{handString}</div>
+                      <div className="text-xs opacity-90">
+                        {handData.winRate.toFixed(1)}%
+                      </div>
+                    </div>
+                  </button>
+                );
+              })
+            )}
+          </div>
         </div>
       </Card>
       

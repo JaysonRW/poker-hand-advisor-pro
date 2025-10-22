@@ -103,7 +103,7 @@ const SituationSimulator: React.FC = () => {
                 <span className="suit-diamonds"></span>
                 Tipo de Jogo
               </label>
-              <select value={gameType} onChange={e => setGameType(e.target.value)} className="w-full rounded-lg px-4 py-3 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input">
+              <select value={gameType} onChange={e => setGameType(e.target.value)} className="w-full rounded-lg px-4 py-4 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input text-lg min-h-[48px]">
                 {gameTypes.map(gt => <option key={gt.value} value={gt.value}>{gt.label}</option>)}
               </select>
             </div>
@@ -112,7 +112,7 @@ const SituationSimulator: React.FC = () => {
                 <span className="suit-clubs"></span>
                 Posição
               </label>
-              <select value={position} onChange={e => setPosition(e.target.value)} className="w-full rounded-lg px-4 py-3 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input">
+              <select value={position} onChange={e => setPosition(e.target.value)} className="w-full rounded-lg px-4 py-4 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input text-lg min-h-[48px]">
                 {positions.map(pos => <option key={pos.value} value={pos.value}>{pos.label}</option>)}
               </select>
             </div>
@@ -124,7 +124,7 @@ const SituationSimulator: React.FC = () => {
                     key={opt} 
                     type="button" 
                     onClick={() => handleStackSelect(opt)} 
-                    className={`px-3 py-2 rounded-lg font-heading text-sm transition-all duration-200 ${
+                    className={`px-4 py-3 rounded-lg font-heading text-base transition-all duration-200 min-h-[48px] ${
                       stack === opt 
                         ? 'bg-gradient-secondary text-primary shadow-glow scale-105' 
                         : 'bg-card text-foreground border border-border hover:bg-accent/20 hover:scale-105'
@@ -140,7 +140,7 @@ const SituationSimulator: React.FC = () => {
                 max={300} 
                 value={stackInput} 
                 onChange={e => handleStackInput(e.target.value)} 
-                className="w-full rounded-lg px-4 py-3 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input" 
+                className="w-full rounded-lg px-4 py-4 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input text-lg min-h-[48px]" 
               />
             </div>
             <div className="flex flex-col">
@@ -151,7 +151,7 @@ const SituationSimulator: React.FC = () => {
                 max={10} 
                 value={players} 
                 onChange={e => setPlayers(Number(e.target.value))} 
-                className="w-full rounded-lg px-4 py-3 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input" 
+                className="w-full rounded-lg px-4 py-4 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input text-lg min-h-[48px]" 
               />
             </div>
             <div className="sm:col-span-2 flex flex-col">
@@ -164,7 +164,7 @@ const SituationSimulator: React.FC = () => {
                   type="text"
                   value={hand}
                   onChange={e => handleHandChange(e.target.value)}
-                  className="w-full rounded-lg px-4 py-3 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input"
+                  className="w-full rounded-lg px-4 py-4 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input text-lg min-h-[48px]"
                   maxLength={3}
                   autoComplete="off"
                   spellCheck={false}
@@ -188,7 +188,7 @@ const SituationSimulator: React.FC = () => {
           
           <button 
             type="submit" 
-            className="w-full bg-gradient-orange-gold hover:bg-gradient-orange-gold/90 text-primary font-heading py-4 px-6 rounded-lg shadow-glow-accent hover:shadow-glow-accent transition-all duration-200 text-lg hover:scale-105 shimmer"
+            className="w-full bg-gradient-orange-gold hover:bg-gradient-orange-gold/90 text-primary font-heading py-5 px-6 rounded-lg shadow-glow-accent hover:shadow-glow-accent transition-all duration-200 text-lg hover:scale-105 shimmer min-h-[56px]"
           >
             <span className="flex items-center justify-center gap-2">
               <span className="suit-hearts"></span>

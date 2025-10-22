@@ -170,22 +170,84 @@
   grid-template-columns: repeat(13, minmax(0, 1fr));
 }
 
-/* Responsive adjustments */
+/* Mobile First Responsive Design */
 @media (max-width: 768px) {
-  .grid-cols-13 {
-    gap: 1px;
+  /* Touch-friendly buttons */
+  button, input, select, textarea {
+    min-height: 48px;
+    font-size: 16px; /* Prevents zoom on iOS */
   }
   
-  .grid-cols-13 > button {
-    font-size: 0.6rem;
-    padding: 0.25rem;
+  /* Larger touch targets */
+  .interactive-card {
+    min-height: 60px;
+    padding: 1rem;
+  }
+  
+  /* Mobile navigation */
+  .mobile-menu-overlay {
+    backdrop-filter: blur(20px);
+    background: rgba(15, 42, 26, 0.95);
+  }
+  
+  /* Mobile table carousel */
+  .mobile-carousel {
+    touch-action: pan-x;
+    scroll-behavior: smooth;
+  }
+  
+  /* Mobile typography */
+  .font-title {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+  
+  .font-heading {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+  
+  .font-body {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  /* Mobile spacing */
+  .mobile-padding {
+    padding: 1rem;
+  }
+  
+  /* Mobile cards */
+  .mobile-card {
+    margin-bottom: 1rem;
+    padding: 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
-  .grid-cols-13 > button {
-    font-size: 0.5rem;
-    padding: 0.125rem;
+  /* Extra small screens */
+  .font-title {
+    font-size: 18px;
+  }
+  
+  .font-heading {
+    font-size: 14px;
+  }
+  
+  .font-body {
+    font-size: 13px;
+  }
+  
+  /* Compact mobile layout */
+  .mobile-compact {
+    padding: 0.75rem;
+    gap: 0.5rem;
+  }
+  
+  /* Mobile buttons */
+  button {
+    min-height: 44px;
+    padding: 0.75rem 1rem;
   }
 }
 

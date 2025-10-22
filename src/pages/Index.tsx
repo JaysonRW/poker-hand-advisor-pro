@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 const Index = () => {
   return (
     <div className="min-h-screen poker-table">
-      <div className="container mx-auto py-8">
+      <div className="container mx-auto py-4 md:py-8 px-2 md:px-4">
         <PokerHandGrid />
       </div>
       <PokerHandsFooter />
-      <div className="flex justify-center mt-8">
-        <Link to="/glossario" className="inline-block bg-gradient-secondary hover:bg-gradient-secondary/90 text-primary font-heading py-3 px-8 rounded-lg shadow-glow hover:shadow-glow transition-all duration-200 text-lg hover:scale-105">Glossário de Poker</Link>
+      <div className="flex justify-center mt-6 md:mt-8 px-4">
+        <Link to="/glossario" className="inline-block bg-gradient-secondary hover:bg-gradient-secondary/90 text-primary font-heading py-4 px-8 rounded-lg shadow-glow hover:shadow-glow transition-all duration-200 text-lg hover:scale-105 min-h-touch w-full max-w-sm text-center">Glossário de Poker</Link>
       </div>
       {/* Footer */}
       <footer className="mt-12 text-center text-muted-foreground text-sm pb-8">

@@ -125,6 +125,14 @@ export default {
 				'neumorphism-inset': 'inset 4px 4px 8px rgba(0, 0, 0, 0.3), inset -4px -4px 8px rgba(255, 255, 255, 0.05)',
 				'glow': '0 0 20px rgba(212, 175, 55, 0.3)',
 				'glow-accent': '0 0 20px rgba(255, 107, 53, 0.3)',
+			},
+			spacing: {
+				'touch': '48px',
+				'touch-lg': '56px',
+			},
+			minHeight: {
+				'touch': '48px',
+				'touch-lg': '56px',
 			}
 		}
 	},

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
 
 const navItems = [
   { to: '/', label: 'Tabela' },
@@ -9,6 +10,12 @@ const navItems = [
 
 const Navbar: React.FC = () => {
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <nav className="fixed top-0 left-0 w-full z-50 glassmorphism-strong border-b border-secondary/30 shadow-neumorphism">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 py-4">
@@ -21,7 +28,9 @@ const Navbar: React.FC = () => {
             Poker Hand Advisor <span className="text-accent">Pro</span>
           </span>
         </div>
-        <div className="flex gap-1 sm:gap-4">
+
+        {/* Desktop Menu */}
+        <div className="hidden sm:flex gap-1 sm:gap-4">
           {navItems.map(item => (
             <Link
               key={item.to}
@@ -36,7 +45,64 @@ const Navbar: React.FC = () => {
             </Link>
           ))}
         </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          onClick={toggleMobileMenu}
+          className="sm:hidden p-2 rounded-lg bg-card/50 border border-border hover:bg-accent/20 transition-all duration-200"
+          aria-label="Toggle mobile menu"
+        >
+          {isMobileMenuOpen ? (
+            <X className="h-6 w-6 text-foreground" />
+          ) : (
+            <Menu className="h-6 w-6 text-foreground" />
+          )}
+        </button>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="sm:hidden fixed inset-0 z-40 bg-background/95 backdrop-blur-sm">
+          <div className="flex flex-col items-center justify-center h-full space-y-8">
+            <div className="text-center mb-8">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <img src="/poker-logo.png" alt="Logo" className="h-12 w-12 shadow-glow" />
+                <span className="text-secondary font-title text-xl">
+                  Poker Hand Advisor <span className="text-accent">Pro</span>
+                </span>
+              </div>
+            </div>
+            
+            <div className="flex flex-col space-y-6 w-full max-w-xs">
+              {navItems.map(item => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`px-6 py-4 rounded-xl font-heading transition-all duration-200 text-lg text-center ${
+                    location.pathname === item.to 
+                      ? 'bg-gradient-secondary text-primary shadow-glow scale-105' 
+                      : 'bg-gradient-card text-foreground border border-border hover:bg-accent/20 hover:text-accent hover:scale-105 shadow-neumorphism'
+                  }`}
+                >
+                  <div className="flex items-center justify-center gap-2">
+                    <span className="suit-spades"></span>
+                    {item.label}
+                    <span className="suit-hearts"></span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            <button
+              onClick={toggleMobileMenu}
+              className="mt-8 px-6 py-3 rounded-xl bg-gradient-accent text-accent-foreground font-heading shadow-glow-accent hover:scale-105 transition-all duration-200"
+            >
+              Fechar Menu
+            </button>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
