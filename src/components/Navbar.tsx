@@ -10,18 +10,27 @@ const navItems = [
 const Navbar: React.FC = () => {
   const location = useLocation();
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-green-950/90 border-b border-green-800 shadow-md backdrop-blur-sm">
-      <div className="max-w-6xl mx-auto flex items-center justify-between px-2 sm:px-4 py-2">
-        <div className="flex items-center gap-2">
-          <img src="/poker-logo.png" alt="Logo" className="h-9 w-9 sm:h-8 sm:w-8 mr-0 sm:mr-2" />
-          <span className="hidden sm:inline text-yellow-400 font-bold text-lg tracking-wide whitespace-nowrap">Poker Hand Advisor Pro</span>
+    <nav className="fixed top-0 left-0 w-full z-50 glassmorphism-strong border-b border-secondary/30 shadow-neumorphism">
+      <div className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 py-4">
+        <div className="flex items-center gap-3">
+          <div className="relative">
+            <img src="/poker-logo.png" alt="Logo" className="h-10 w-10 sm:h-12 sm:w-12 shadow-glow pulse-glow" />
+            <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-secondary rounded-full animate-pulse"></div>
+          </div>
+          <span className="hidden sm:inline text-secondary font-title tracking-wide whitespace-nowrap text-lg">
+            Poker Hand Advisor <span className="text-accent">Pro</span>
+          </span>
         </div>
         <div className="flex gap-1 sm:gap-4">
           {navItems.map(item => (
             <Link
               key={item.to}
               to={item.to}
-              className={`px-3 py-2 sm:py-1.5 rounded-lg font-semibold transition-colors text-sm sm:text-base ${location.pathname === item.to ? 'bg-yellow-500 text-green-900 shadow' : 'text-yellow-200 hover:bg-yellow-400/20 hover:text-yellow-300'}`}
+              className={`px-4 py-2 sm:py-2 rounded-lg font-heading transition-all duration-200 text-sm sm:text-base ${
+                location.pathname === item.to 
+                  ? 'bg-gradient-secondary text-primary shadow-glow scale-105' 
+                  : 'text-foreground hover:bg-accent/20 hover:text-accent hover:scale-105'
+              }`}
             >
               {item.label}
             </Link>

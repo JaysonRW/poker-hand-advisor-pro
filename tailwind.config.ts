@@ -19,6 +19,18 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'title': ['Montserrat', 'Bebas Neue', 'sans-serif'],
+				'heading': ['Montserrat', 'Bebas Neue', 'sans-serif'],
+				'body': ['Inter', 'Poppins', 'sans-serif'],
+				'input': ['Inter', 'Poppins', 'sans-serif'],
+			},
+			fontSize: {
+				'title': ['24px', '1.2'],
+				'heading': ['18px', '1.3'],
+				'body': ['14px', '1.5'],
+				'input': ['18px', '1.4'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -99,6 +111,20 @@ export default {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out'
+			},
+			backgroundImage: {
+				'gradient-primary': 'linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%)',
+				'gradient-secondary': 'linear-gradient(135deg, #d4af37 0%, #f4d03f 100%)',
+				'gradient-accent': 'linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%)',
+				'gradient-card': 'linear-gradient(135deg, #162e20 0%, #1a3a2a 100%)',
+				'gradient-gold-border': 'linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%)',
+				'gradient-orange-gold': 'linear-gradient(135deg, #ff6b35 0%, #d4af37 100%)',
+			},
+			boxShadow: {
+				'neumorphism': '8px 8px 16px rgba(0, 0, 0, 0.3), -8px -8px 16px rgba(255, 255, 255, 0.05)',
+				'neumorphism-inset': 'inset 4px 4px 8px rgba(0, 0, 0, 0.3), inset -4px -4px 8px rgba(255, 255, 255, 0.05)',
+				'glow': '0 0 20px rgba(212, 175, 55, 0.3)',
+				'glow-accent': '0 0 20px rgba(255, 107, 53, 0.3)',
 			}
 		}
 	},

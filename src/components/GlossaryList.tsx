@@ -1,25 +1,84 @@
-import React from 'react';
+import React, { useState } from 'react';
 import GlossaryTerm from './GlossaryTerm';
 import { glossary } from './GlossaryData';
 import { Link } from 'react-router-dom';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 const GlossaryList: React.FC = () => {
   const sortedGlossary = [...glossary].sort((a, b) => a.term.localeCompare(b.term));
+  const [expandedTerms, setExpandedTerms] = useState<Set<string>>(new Set());
+
+  const toggleExpanded = (term: string) => {
+    const newExpanded = new Set(expandedTerms);
+    if (newExpanded.has(term)) {
+      newExpanded.delete(term);
+    } else {
+      newExpanded.add(term);
+    }
+    setExpandedTerms(newExpanded);
+  };
+
   return (
-    <section className="w-full max-w-2xl mx-auto mt-12 px-2">
-      <div className="flex justify-start mb-6">
-        <Link to="/" className="inline-block bg-green-700 hover:bg-green-600 text-yellow-200 font-bold py-2 px-6 rounded-lg shadow-lg transition-colors text-base">← Voltar para Tabela</Link>
+    <section className="w-full max-w-4xl mx-auto mt-12 px-4">
+      <div className="flex justify-start mb-8">
+        <Link to="/" className="inline-block bg-gradient-primary hover:bg-gradient-primary/90 text-primary-foreground font-heading py-3 px-6 rounded-lg shadow-glow transition-all duration-200 hover:scale-105">
+          ← Voltar para Tabela
+        </Link>
       </div>
-      <h2 className="text-2xl font-bold text-yellow-400 text-center mb-6">Glossário de Poker</h2>
-      <div className="bg-green-900/80 border border-green-700 rounded-lg shadow-lg p-6">
-        <ul className="space-y-4">
-          {sortedGlossary.map(({ term, description }) => (
-            <li key={term} className="flex flex-col sm:flex-row sm:items-center gap-1">
-              <GlossaryTerm term={term} description={description} />
-              <span className="text-green-100 text-sm sm:ml-2">{description}</span>
-            </li>
-          ))}
-        </ul>
+      
+      <div className="text-center mb-8">
+        <h2 className="text-title font-title text-foreground mb-2 flex items-center justify-center gap-2">
+          <span className="suit-spades"></span>
+          Glossário de Poker
+          <span className="suit-hearts"></span>
+        </h2>
+        <p className="text-muted-foreground font-body">Termos essenciais para dominar o poker</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {sortedGlossary.map(({ term, description }) => {
+          const isExpanded = expandedTerms.has(term);
+          const getSuitIcon = (index: number) => {
+            const suits = ['suit-spades', 'suit-hearts', 'suit-diamonds', 'suit-clubs'];
+            return suits[index % 4];
+          };
+          
+          return (
+            <Card 
+              key={term} 
+              className="bg-gradient-card border border-border shadow-neumorphism interactive-card"
+            >
+              <CardHeader 
+                className="cursor-pointer" 
+                onClick={() => toggleExpanded(term)}
+              >
+                <CardTitle className="text-lg text-foreground flex items-center justify-between font-heading">
+                  <div className="flex items-center gap-2">
+                    <span className={getSuitIcon(sortedGlossary.indexOf({ term, description }))}></span>
+                    <GlossaryTerm term={term} description={description} />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="pro-tip-badge text-xs">Term</span>
+                    {isExpanded ? (
+                      <ChevronUp className="text-accent" size={20} />
+                    ) : (
+                      <ChevronDown className="text-accent" size={20} />
+                    )}
+                  </div>
+                </CardTitle>
+              </CardHeader>
+              
+              {isExpanded && (
+                <CardContent className="pt-0">
+                  <div className="bg-card/50 rounded-lg p-4 border border-border">
+                    <p className="text-foreground font-body leading-relaxed">{description}</p>
+                  </div>
+                </CardContent>
+              )}
+            </Card>
+          );
+        })}
       </div>
     </section>
   );

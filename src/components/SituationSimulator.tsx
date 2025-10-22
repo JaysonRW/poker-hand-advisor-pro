@@ -82,54 +82,99 @@ const SituationSimulator: React.FC = () => {
   };
 
   return (
-    <section className="w-full max-w-xl mx-auto mt-12 px-2">
-      <h2 className="text-xl font-bold text-yellow-400 text-center mb-4">Simulador de Situação</h2>
-      <div className="bg-green-900/80 border border-green-700 rounded-lg shadow-lg p-6">
+    <section className="w-full max-w-2xl mx-auto mt-12 px-4">
+      <div className="text-center mb-8">
+        <h2 className="text-title font-title text-foreground mb-2 flex items-center justify-center gap-2">
+          <span className="suit-spades"></span>
+          Simulador de Situação
+          <span className="suit-hearts"></span>
+        </h2>
+        <p className="text-muted-foreground font-body">Configure sua situação e receba recomendações profissionais</p>
+      </div>
+      
+      <div className="relative">
+        {/* Borda dourada animada */}
+        <div className="absolute inset-0 bg-gradient-gold-border rounded-xl p-1 animate-pulse"></div>
+        <div className="relative bg-gradient-card border border-secondary/30 rounded-xl shadow-neumorphism p-8">
         <form onSubmit={e => { e.preventDefault(); simulate(); }}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
             <div className="flex flex-col">
-              <label className="block text-green-200 mb-1 font-semibold">Tipo de Jogo</label>
-              <select value={gameType} onChange={e => setGameType(e.target.value)} className="w-full rounded px-3 py-2 bg-green-800 text-yellow-200 border-green-600 focus:ring-yellow-400">
+              <label className="block text-foreground mb-2 font-heading flex items-center gap-2">
+                <span className="suit-diamonds"></span>
+                Tipo de Jogo
+              </label>
+              <select value={gameType} onChange={e => setGameType(e.target.value)} className="w-full rounded-lg px-4 py-3 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input">
                 {gameTypes.map(gt => <option key={gt.value} value={gt.value}>{gt.label}</option>)}
               </select>
             </div>
             <div className="flex flex-col">
-              <label className="block text-green-200 mb-1 font-semibold">Posição</label>
-              <select value={position} onChange={e => setPosition(e.target.value)} className="w-full rounded px-3 py-2 bg-green-800 text-yellow-200 border-green-600 focus:ring-yellow-400">
+              <label className="block text-foreground mb-2 font-heading flex items-center gap-2">
+                <span className="suit-clubs"></span>
+                Posição
+              </label>
+              <select value={position} onChange={e => setPosition(e.target.value)} className="w-full rounded-lg px-4 py-3 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input">
                 {positions.map(pos => <option key={pos.value} value={pos.value}>{pos.label}</option>)}
               </select>
             </div>
             <div className="flex flex-col">
-              <label className="block text-green-200 mb-1 font-semibold">Stack (BB)</label>
-              <div className="flex gap-2 mb-1 flex-wrap">
+              <label className="block text-foreground mb-2 font-heading">Stack (BB)</label>
+              <div className="flex gap-2 mb-3 flex-wrap">
                 {stackOptions.map(opt => (
-                  <button key={opt} type="button" onClick={() => handleStackSelect(opt)} className={`px-2 py-1 rounded bg-green-700 text-yellow-200 font-bold text-xs border border-green-600 hover:bg-yellow-600 hover:text-green-900 transition-colors ${stack === opt ? 'bg-yellow-500 text-green-900' : ''}`}>{opt}bb</button>
+                  <button 
+                    key={opt} 
+                    type="button" 
+                    onClick={() => handleStackSelect(opt)} 
+                    className={`px-3 py-2 rounded-lg font-heading text-sm transition-all duration-200 ${
+                      stack === opt 
+                        ? 'bg-gradient-secondary text-primary shadow-glow scale-105' 
+                        : 'bg-card text-foreground border border-border hover:bg-accent/20 hover:scale-105'
+                    }`}
+                  >
+                    {opt}bb
+                  </button>
                 ))}
               </div>
-              <input type="number" min={1} max={300} value={stackInput} onChange={e => handleStackInput(e.target.value)} className="w-full rounded px-3 py-2 bg-green-800 text-yellow-200 border-green-600 focus:ring-yellow-400" />
+              <input 
+                type="number" 
+                min={1} 
+                max={300} 
+                value={stackInput} 
+                onChange={e => handleStackInput(e.target.value)} 
+                className="w-full rounded-lg px-4 py-3 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input" 
+              />
             </div>
             <div className="flex flex-col">
-              <label className="block text-green-200 mb-1 font-semibold">Jogadores na Mesa</label>
-              <input type="number" min={2} max={10} value={players} onChange={e => setPlayers(Number(e.target.value))} className="w-full rounded px-3 py-2 bg-green-800 text-yellow-200 border-green-600 focus:ring-yellow-400" />
+              <label className="block text-foreground mb-2 font-heading">Jogadores na Mesa</label>
+              <input 
+                type="number" 
+                min={2} 
+                max={10} 
+                value={players} 
+                onChange={e => setPlayers(Number(e.target.value))} 
+                className="w-full rounded-lg px-4 py-3 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input" 
+              />
             </div>
             <div className="sm:col-span-2 flex flex-col">
-              <label className="block text-green-200 mb-1 font-semibold">Cartas Iniciais (ex: AKs, 99, QJo)</label>
+              <label className="block text-foreground mb-2 font-heading flex items-center gap-2">
+                <span className="suit-spades"></span>
+                Cartas Iniciais (ex: AKs, 99, QJo)
+              </label>
               <div className="relative">
                 <input
                   type="text"
                   value={hand}
                   onChange={e => handleHandChange(e.target.value)}
-                  className="w-full rounded px-3 py-2 bg-green-800 text-yellow-200 border-green-600 focus:ring-yellow-400"
+                  className="w-full rounded-lg px-4 py-3 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input"
                   maxLength={3}
                   autoComplete="off"
                   spellCheck={false}
                 />
                 {handSuggestions.length > 0 && (
-                  <ul className="absolute left-0 right-0 bg-green-900 border border-green-700 rounded shadow-lg z-10 mt-1 max-h-32 overflow-y-auto">
+                  <ul className="absolute left-0 right-0 bg-card border border-border rounded-lg shadow-neumorphism z-10 mt-2 max-h-32 overflow-y-auto">
                     {handSuggestions.map(s => (
                       <li
                         key={s}
-                        className="px-3 py-1 text-yellow-200 hover:bg-yellow-600 hover:text-green-900 cursor-pointer"
+                        className="px-4 py-2 text-foreground hover:bg-accent/20 cursor-pointer transition-colors font-body"
                         onClick={() => { setHand(s); setHandSuggestions([]); }}
                       >
                         {s}
@@ -140,14 +185,38 @@ const SituationSimulator: React.FC = () => {
               </div>
             </div>
           </div>
-          <button type="submit" className="w-full bg-yellow-600 hover:bg-yellow-500 text-green-900 font-bold py-2 px-4 rounded-lg transition-colors text-lg">Simular</button>
+          
+          <button 
+            type="submit" 
+            className="w-full bg-gradient-orange-gold hover:bg-gradient-orange-gold/90 text-primary font-heading py-4 px-6 rounded-lg shadow-glow-accent hover:shadow-glow-accent transition-all duration-200 text-lg hover:scale-105 shimmer"
+          >
+            <span className="flex items-center justify-center gap-2">
+              <span className="suit-hearts"></span>
+              Simular Situação
+              <span className="suit-diamonds"></span>
+            </span>
+          </button>
         </form>
         {result && (
-          <div className="mt-6 p-4 rounded-lg bg-green-800/70 border border-green-600 text-center">
-            <div className="text-lg font-bold text-yellow-400 mb-2">Ação Recomendada: <span className="text-white">{result.action}</span></div>
-            <div className="text-green-200 text-sm">{result.explanation}</div>
+          <div className="mt-8 p-6 rounded-xl bg-gradient-card border border-secondary/30 shadow-neumorphism text-center card-flip">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <span className="pro-tip-badge">Pro Tip</span>
+              <span className="text-2xl">🎯</span>
+            </div>
+            <div className="text-xl font-heading text-foreground mb-3">
+              Ação Recomendada: <span className="text-accent font-title">{result.action}</span>
+            </div>
+            <div className="text-muted-foreground font-body leading-relaxed">{result.explanation}</div>
+            
+            {/* Chips animadas */}
+            <div className="flex justify-center gap-2 mt-4">
+              <div className="w-6 h-6 bg-gradient-secondary rounded-full chip-fall"></div>
+              <div className="w-6 h-6 bg-gradient-secondary rounded-full chip-fall" style={{animationDelay: '0.2s'}}></div>
+              <div className="w-6 h-6 bg-gradient-secondary rounded-full chip-fall" style={{animationDelay: '0.4s'}}></div>
+            </div>
           </div>
         )}
+        </div>
       </div>
     </section>
   );
