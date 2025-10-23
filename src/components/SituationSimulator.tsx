@@ -40,7 +40,6 @@ const SituationSimulator: React.FC = () => {
   // Lógica simples de decisão (exemplo) - Usando chaves de tradução
   const simulate = () => {
     let action = 'Fold';
-    // Assumimos que a chave de fallback está definida na estrutura de i18n
     let explanationKey = 'simulator.results.defaultFold';
 
     if (['AKs', 'QQ', 'KK', 'AA'].includes(hand) && stack >= 20) {
@@ -202,7 +201,8 @@ const SituationSimulator: React.FC = () => {
           
           <button 
             type="submit" 
-            className="w-full bg-gradient-orange-gold hover:bg-gradient-orange-gold/90 text-primary font-heading py-5 px-6 rounded-lg shadow-glow-accent hover:shadow-glow-accent transition-all duration-200 text-lg hover:scale-105 shimmer min-h-[56px]"
+            // CORREÇÃO APLICADA: Trocando 'shadow-glow-accent' por 'shadow-glow' para usar a cor dourada do tema.
+            className="w-full bg-gradient-orange-gold hover:bg-gradient-orange-gold/90 text-white font-heading py-5 px-6 rounded-lg shadow-glow hover:shadow-glow transition-all duration-200 text-lg hover:scale-105 shimmer min-h-[56px]"
           >
             <span className="flex items-center justify-center gap-2">
               <span className="suit-hearts"></span>
