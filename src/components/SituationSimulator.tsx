@@ -1,5 +1,9 @@
+// src/components/SituationSimulator.tsx
+
 import React, { useState } from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
+// Importação da base de dados de mãos
+import { pokerHandsData } from '@/data/pokerHands'; 
 
 // Usamos as chaves de tradução em vez dos objetos completos
 const positionKeys = ['UTG', 'MP', 'CO', 'BTN', 'SB', 'BB'];
@@ -34,34 +38,67 @@ const SituationSimulator: React.FC = () => {
       setHandSuggestions([]);
       return;
     }
+    // Melhorar a lista de sugestões, filtrando apenas mãos válidas e únicas
     setHandSuggestions(validHands.filter(h => h.startsWith(val) && h !== val));
   };
 
-  // Lógica simples de decisão (exemplo) - Usando chaves de tradução
+  // Lógica de decisão refatorada para usar os dados do pokerHandsData e a regra de 60%
   const simulate = () => {
+    // Busca os dados da mão, com fallback para uma mão de fold (72o) se não encontrar
+    const handData = pokerHandsData[hand] || pokerHandsData['72o'];
+    const { winRate, category, positions, recommendation } = handData;
+
     let action = 'Fold';
     let explanationKey = 'simulator.results.defaultFold';
-
-    if (['AKs', 'QQ', 'KK', 'AA'].includes(hand) && stack >= 20) {
+    
+    // 1. Mãos com alta Equity (Premium/Strong) - Acima de 70%
+    if (winRate >= 70) {
+      // Se for uma mão premium, a ação é Raise na maioria das vezes
       action = 'Raise';
       explanationKey = 'simulator.results.premiumRaise';
-    } else if (['AQs', 'AJs', 'KQs', 'JTs'].includes(hand) && ['CO', 'BTN'].includes(position)) {
-      action = 'Raise';
-      explanationKey = 'simulator.results.strongRaise';
-    } else if (['AQo', 'KQo', 'QJs'].includes(hand) && position === 'BTN') {
-      action = 'Raise';
-      explanationKey = 'simulator.results.buttonRaise';
-    } else if (['22', '33', '44', '55', '66'].includes(hand) && stack >= 30) {
-      action = 'Call';
-      explanationKey = 'simulator.results.pairCall';
-    } else if (['SB', 'BB'].includes(position) && ['A2s', 'K9s', 'Q9s'].includes(hand)) {
-      action = 'Call';
-      explanationKey = 'simulator.results.blindDefend';
+    } 
+    
+    // 2. Mãos Fortes / Mãos Situacionais (Acima de 60%)
+    // Verifica a regra de 60% e se a mão é jogável na posição atual
+    else if (winRate >= 60) {
+        
+        // Verifica se a posição atual está na lista de posições recomendadas
+        const isPositionRecommended = positions.some(
+            // Verifica se a posição é um match exato (BTN)
+            p => p === position ||
+            // Ou se a posição é um match de grupo (ex: 'Early Position' inclui 'UTG')
+            (p === 'Early Position' && ['UTG', 'MP'].includes(position)) ||
+            (p === 'Middle Position' && position === 'MP') ||
+            (p === 'Late Position' && ['CO', 'BTN'].includes(position)) ||
+            (p === 'Blinds' && ['SB', 'BB'].includes(position))
+        );
+
+        if (isPositionRecommended) {
+            action = recommendation; // Usa a recomendação do banco de dados (Raise/Call)
+            explanationKey = 'simulator.results.strongRaise';
+        } else {
+            // Se a mão é forte (>= 60%) mas a posição é muito ruim (Ex: 99 no UTG)
+            action = 'Fold';
+            explanationKey = 'simulator.results.defaultFold';
+        }
+    } 
+    
+    // 3. Mãos Especulativas (Set mining, etc.) com stack grande
+    else if (category === 'situational' && stack >= 50 && positions.length > 0) {
+        action = 'Call';
+        explanationKey = 'simulator.results.pairCall';
     }
     
-    // O texto da explicação agora é buscado no arquivo de tradução
+    // 4. Default: Fold
+    else {
+      action = 'Fold';
+      explanationKey = 'simulator.results.defaultFold';
+    }
+
+    // Traduz a explicação e define o resultado
     setResult({ action, explanation: t(explanationKey) });
   };
+
 
   // Atualiza stack ao selecionar opção rápida
   const handleStackSelect = (val: number) => {
@@ -201,7 +238,6 @@ const SituationSimulator: React.FC = () => {
           
           <button 
             type="submit" 
-            // CORREÇÃO FINAL: Removido 'shimmer' (causava transparência) e usado 'shadow-glow' (dourado)
             className="w-full bg-gradient-orange-gold hover:bg-gradient-orange-gold/90 text-white font-heading py-5 px-6 rounded-lg shadow-glow hover:shadow-glow transition-all duration-200 text-lg hover:scale-105 min-h-[56px]"
           >
             <span className="flex items-center justify-center gap-2">
