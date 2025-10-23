@@ -10,6 +10,7 @@ import { AccessGate } from "./components/AccessGate";
 import GlossaryList from './components/GlossaryList';
 import Navbar from './components/Navbar';
 import SituationSimulator from './components/SituationSimulator';
+import OddsCalculator from './components/OddsCalculator'; // NOVO IMPORT
 import { LanguageProvider } from './contexts/LanguageContext';
 
 const queryClient = new QueryClient();
@@ -55,6 +56,7 @@ const App = () => {
                 <Route path="/" element={<Index />} />
                 <Route path="/glossario" element={<GlossaryList />} />
                 <Route path="/simulador" element={<SituationSimulator />} />
+                <Route path="/calculadora" element={<OddsCalculator />} /> {/* NOVA ROTA */}
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>

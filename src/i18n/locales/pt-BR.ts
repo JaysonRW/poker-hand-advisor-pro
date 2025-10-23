@@ -6,6 +6,7 @@ export const ptBR = {
       table: 'Tabela',
       glossary: 'Glossário',
       simulator: 'Simulador',
+      calculator: 'Calculadora',
     },
     closeMenu: 'Fechar Menu',
   },
@@ -303,5 +304,25 @@ export const ptBR = {
       blindDefend: 'Mão marginal, pode defender nas blinds contra um raise pequeno.',
       defaultFold: 'Mão não recomendada para jogar nesta situação (Fold).'
     },
-  }
+  },
+  // NOVO BLOCO: CALCULADORA DE ODDS
+  calculator: {
+    title: 'Calculadora de Odds e Equity',
+    subtitle: 'Calcule Pot Odds e probabilidade de acerto (Outs).',
+    outs: 'Número de Outs',
+    potSize: 'Pote Atual (fichas)',
+    betSize: 'Aposta a Pagar (fichas)',
+    calculateButton: 'Calcular Odds',
+    results: {
+      title: 'Resultados do Cálculo',
+      hitOddsFlop: 'Probabilidade de Acerto (Flop -> River)',
+      hitOddsTurn: 'Probabilidade de Acerto (Turn -> River)',
+      potOdds: 'Pot Odds (Custo do Call)',
+      potOddsBreakdown: 'Mínimo de Equity Necessário',
+      recommendation: 'Ação Recomendada:',
+      call: 'CALL / PAGAR (Lucrativo)',
+      fold: 'FOLD / DESISTIR (Não Lucrativo)',
+      warning: 'Insira valores numéricos válidos para calcular.',
+    },
+  },
 };

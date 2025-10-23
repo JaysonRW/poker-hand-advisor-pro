@@ -13,6 +13,7 @@ const Navbar: React.FC = () => {
     { to: '/', label: t('navbar.menuItems.table') },
     { to: '/glossario', label: t('navbar.menuItems.glossary') },
     { to: '/simulador', label: t('navbar.menuItems.simulator') },
+    { to: '/calculadora', label: t('navbar.menuItems.calculator') }, // NOVO ITEM
   ];
 
   const toggleMobileMenu = () => {

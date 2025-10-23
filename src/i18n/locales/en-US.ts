@@ -6,6 +6,7 @@ export const enUS = {
       table: 'Table',
       glossary: 'Glossary',
       simulator: 'Simulator',
+      calculator: 'Calculator', // NOVO ITEM DE MENU
     },
     closeMenu: 'Close Menu',
   },
@@ -304,4 +305,24 @@ export const enUS = {
       defaultFold: 'Hand not recommended to play in this situation (Fold).'
     },
   }
+  // NOVO BLOCO: CALCULADORA DE ODDS
+  calculator: {
+    title: 'Odds and Equity Calculator',
+    subtitle: 'Calculate Pot Odds and hit probability (Outs).',
+    outs: 'Number of Outs',
+    potSize: 'Current Pot Size (chips)',
+    betSize: 'Bet to Call (chips)',
+    calculateButton: 'Calculate Odds',
+    results: {
+      title: 'Calculation Results',
+      hitOddsFlop: 'Hit Probability (Flop -> River)',
+      hitOddsTurn: 'Hit Probability (Turn -> River)',
+      potOdds: 'Pot Odds (Cost of Call)',
+      potOddsBreakdown: 'Minimum Required Equity',
+      recommendation: 'Recommended Action:',
+      call: 'CALL / PAY (Profitable)',
+      fold: 'FOLD / GIVE UP (Not Profitable)',
+      warning: 'Enter valid numerical values to calculate.',
+    },
+  },
 };
