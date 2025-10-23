@@ -304,7 +304,7 @@ export const enUS = {
       blindDefend: 'Marginal hand, can defend in the blinds against a small raise.',
       defaultFold: 'Hand not recommended to play in this situation (Fold).'
     },
-  }
+  },
   // NOVO BLOCO: CALCULADORA DE ODDS
   calculator: {
     title: 'Odds and Equity Calculator',

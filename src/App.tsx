@@ -10,7 +10,7 @@ import { AccessGate } from "./components/AccessGate";
 import GlossaryList from './components/GlossaryList';
 import Navbar from './components/Navbar';
 import SituationSimulator from './components/SituationSimulator';
-import OddsCalculator from './components/OddsCalculator'; // NOVO IMPORT
+import OddsCalculator from '@/components/OddsCalculator'; // NOVO IMPORT
 import { LanguageProvider } from './contexts/LanguageContext';
 
 const queryClient = new QueryClient();
