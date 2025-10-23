@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const pokerHands = [
   {
@@ -158,9 +159,43 @@ const suitColors: Record<string, string> = {
 };
 
 const PokerHandsFooter: React.FC = () => {
+  const { t } = useTranslation();
+  
+  const getHandName = (handName: string) => {
+    const handMap: Record<string, string> = {
+      'Royal Flush': t('pokerHands.hands.royalFlush'),
+      'Straight Flush': t('pokerHands.hands.straightFlush'),
+      'Four of a Kind': t('pokerHands.hands.fourOfAKind'),
+      'Full House': t('pokerHands.hands.fullHouse'),
+      'Flush': t('pokerHands.hands.flush'),
+      'Straight': t('pokerHands.hands.straight'),
+      'Three of a Kind': t('pokerHands.hands.threeOfAKind'),
+      'Two Pair': t('pokerHands.hands.twoPair'),
+      'One Pair': t('pokerHands.hands.onePair'),
+      'High Card': t('pokerHands.hands.highCard'),
+    };
+    return handMap[handName] || handName;
+  };
+
+  const getHandDescription = (handName: string) => {
+    const descriptionMap: Record<string, string> = {
+      'Royal Flush': t('pokerHands.descriptions.royalFlush'),
+      'Straight Flush': t('pokerHands.descriptions.straightFlush'),
+      'Four of a Kind': t('pokerHands.descriptions.fourOfAKind'),
+      'Full House': t('pokerHands.descriptions.fullHouse'),
+      'Flush': t('pokerHands.descriptions.flush'),
+      'Straight': t('pokerHands.descriptions.straight'),
+      'Three of a Kind': t('pokerHands.descriptions.threeOfAKind'),
+      'Two Pair': t('pokerHands.descriptions.twoPair'),
+      'One Pair': t('pokerHands.descriptions.onePair'),
+      'High Card': t('pokerHands.descriptions.highCard'),
+    };
+    return descriptionMap[handName] || handName;
+  };
+
   return (
     <section className="w-full max-w-5xl mx-auto mt-12 px-2">
-      <h2 className="text-xl font-bold text-yellow-400 text-center mb-4">Ranking das Mãos de Poker</h2>
+      <h2 className="text-xl font-bold text-yellow-400 text-center mb-4">{t('pokerHands.title')}</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {pokerHands.map((hand) => (
           <div
@@ -170,7 +205,7 @@ const PokerHandsFooter: React.FC = () => {
           >
             <div className="flex items-center gap-2 mb-2">
               <span className="bg-yellow-600 text-white rounded-full px-2 py-0.5 text-xs font-bold">#{hand.ranking}</span>
-              <span className="text-lg font-semibold text-white">{hand.name}</span>
+              <span className="text-lg font-semibold text-white">{getHandName(hand.name)}</span>
             </div>
             <div className="flex gap-1 mb-2">
               {hand.cards.map((card, idx) => (
@@ -187,9 +222,9 @@ const PokerHandsFooter: React.FC = () => {
                 </span>
               ))}
             </div>
-            <div className="text-green-200 text-xs mb-1">Probabilidade: <span className="font-mono text-yellow-300">{hand.odds}</span></div>
-            <div className="text-green-300 text-xs mb-2">Combinações: <span className="font-mono">{hand.count.toLocaleString()}</span></div>
-            <div className="text-green-100 text-xs text-center group-hover:text-yellow-200 transition-colors" title={hand.description}>{hand.description}</div>
+            <div className="text-green-200 text-xs mb-1">{t('pokerHands.probability')}: <span className="font-mono text-yellow-300">{hand.odds}</span></div>
+            <div className="text-green-300 text-xs mb-2">{t('pokerHands.combinations')}: <span className="font-mono">{hand.count.toLocaleString()}</span></div>
+            <div className="text-green-100 text-xs text-center group-hover:text-yellow-200 transition-colors" title={getHandDescription(hand.name)}>{getHandDescription(hand.name)}</div>
           </div>
         ))}
       </div>

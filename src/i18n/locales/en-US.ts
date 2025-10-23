@@ -230,4 +230,78 @@ export const enUS = {
   common: {
     loading: 'Loading...',
   },
+  accessGate: {
+    title: 'Poker Hand Advisor Pro',
+    subtitle: 'Enter password to access the portal',
+    passwordPlaceholder: 'Enter password',
+    errorMessage: 'Incorrect password. Try again.',
+    verifying: 'Verifying...',
+    accessButton: 'Access Portal',
+    systemDescription: 'Poker hand consultation system',
+  },
+  pokerHands: {
+    title: 'Poker Hand Rankings',
+    probability: 'Probability',
+    combinations: 'Combinations',
+    hands: {
+      royalFlush: 'Royal Flush',
+      straightFlush: 'Straight Flush',
+      fourOfAKind: 'Four of a Kind',
+      fullHouse: 'Full House',
+      flush: 'Flush',
+      straight: 'Straight',
+      threeOfAKind: 'Three of a Kind',
+      twoPair: 'Two Pair',
+      onePair: 'One Pair',
+      highCard: 'High Card',
+    },
+    descriptions: {
+      royalFlush: 'The highest sequence, all of the same suit.',
+      straightFlush: 'Five cards in sequence, all of the same suit.',
+      fourOfAKind: 'Four cards of the same value.',
+      fullHouse: 'Three cards of one value and two of another.',
+      flush: 'Five cards of the same suit, not in sequence.',
+      straight: 'Five cards in sequence, of different suits.',
+      threeOfAKind: 'Three cards of the same value.',
+      twoPair: 'Two pairs of cards of different values.',
+      onePair: 'Two cards of the same value.',
+      highCard: 'No combination, the highest card wins.',
+    },
+  },
+  simulator: {
+    title: 'Situation Simulator',
+    subtitle: 'Configure your situation and receive professional recommendations',
+    gameType: 'Game Type',
+    gameTypes: {
+      cash: 'Cash Game',
+      tournament: 'Tournament',
+      sitngo: 'Sit&Go',
+    },
+    position: 'Position',
+    positions: {
+      UTG: 'UTG (Under the Gun)',
+      MP: 'MP (Middle Position)',
+      CO: 'CO (Cutoff)',
+      BTN: 'BTN (Button)',
+      SB: 'SB (Small Blind)',
+      BB: 'BB (Big Blind)',
+    },
+    stack: 'Stack (BB)',
+    players: 'Players at Table',
+    startingHand: 'Starting Hand (e.g.: AKs, 99, QJo)',
+    simulateButton: 'Simulate Situation',
+    result: {
+      proTip: 'Pro Tip',
+      action: 'Recommended Action:',
+    },
+    // NOVAS CHAVES ADICIONADAS AQUI
+    results: {
+      premiumRaise: 'Premium hand, raise recommended in any position.',
+      strongRaise: 'Strong hand in late position (CO/BTN), a raise is the best option.',
+      buttonRaise: 'Playable hand on the button, raise recommended to take advantage of position.',
+      pairCall: 'Low pairs, good for "set mining" with a deep stack (>=30BB).',
+      blindDefend: 'Marginal hand, can defend in the blinds against a small raise.',
+      defaultFold: 'Hand not recommended to play in this situation (Fold).'
+    },
+  }
 };

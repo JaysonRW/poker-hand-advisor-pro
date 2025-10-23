@@ -3,12 +3,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Lock, Eye, EyeOff } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface AccessGateProps {
   onAccessGranted: () => void;
 }
 
 export const AccessGate: React.FC<AccessGateProps> = ({ onAccessGranted }) => {
+  const { t } = useTranslation();
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
@@ -29,7 +31,7 @@ export const AccessGate: React.FC<AccessGateProps> = ({ onAccessGranted }) => {
       localStorage.setItem('pokerAccess', 'granted');
       onAccessGranted();
     } else {
-      setError('Senha incorreta. Tente novamente.');
+      setError(t('accessGate.errorMessage'));
       setPassword('');
     }
     
@@ -53,10 +55,10 @@ export const AccessGate: React.FC<AccessGateProps> = ({ onAccessGranted }) => {
               />
             </div>
             <CardTitle className="text-2xl font-bold text-yellow-400 mb-2">
-              Poker Hand Advisor Pro
+              {t('accessGate.title')}
             </CardTitle>
             <p className="text-green-200 text-sm">
-              Digite a senha para acessar o portal
+              {t('accessGate.subtitle')}
             </p>
           </CardHeader>
           
@@ -68,7 +70,7 @@ export const AccessGate: React.FC<AccessGateProps> = ({ onAccessGranted }) => {
                 </div>
                 <Input
                   type={showPassword ? 'text' : 'password'}
-                  placeholder="Digite a senha"
+                  placeholder={t('accessGate.passwordPlaceholder')}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="pl-10 pr-12 bg-green-700/50 border-green-500 text-white placeholder:text-green-300 focus:border-yellow-400 focus:ring-yellow-400"
@@ -94,13 +96,13 @@ export const AccessGate: React.FC<AccessGateProps> = ({ onAccessGranted }) => {
                 className="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-semibold py-2"
                 disabled={isLoading || !password.trim()}
               >
-                {isLoading ? 'Verificando...' : 'Acessar Portal'}
+                {isLoading ? t('accessGate.verifying') : t('accessGate.accessButton')}
               </Button>
             </form>
 
             <div className="mt-6 text-center">
               <p className="text-green-300 text-xs">
-                Sistema de consulta de mãos de poker
+                {t('accessGate.systemDescription')}
               </p>
             </div>
           </CardContent>

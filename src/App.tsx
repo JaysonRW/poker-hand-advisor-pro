@@ -39,12 +39,11 @@ const App = () => {
     );
   }
 
-  if (!isAuthenticated) {
-    return <AccessGate onAccessGranted={handleAccessGranted} />;
-  }
-
   return (
     <LanguageProvider>
+      {!isAuthenticated ? (
+        <AccessGate onAccessGranted={handleAccessGranted} />
+      ) : (
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Toaster />
@@ -63,6 +62,7 @@ const App = () => {
           </BrowserRouter>
         </TooltipProvider>
       </QueryClientProvider>
+      )}
     </LanguageProvider>
   );
 };

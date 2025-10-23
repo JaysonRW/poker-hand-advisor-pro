@@ -230,4 +230,78 @@ export const ptBR = {
   common: {
     loading: 'Carregando...',
   },
+  accessGate: {
+    title: 'Poker Hand Advisor Pro',
+    subtitle: 'Digite a senha para acessar o portal',
+    passwordPlaceholder: 'Digite a senha',
+    errorMessage: 'Senha incorreta. Tente novamente.',
+    verifying: 'Verificando...',
+    accessButton: 'Acessar Portal',
+    systemDescription: 'Sistema de consulta de mãos de poker',
+  },
+  pokerHands: {
+    title: 'Ranking das Mãos de Poker',
+    probability: 'Probabilidade',
+    combinations: 'Combinações',
+    hands: {
+      royalFlush: 'Royal Flush',
+      straightFlush: 'Straight Flush',
+      fourOfAKind: 'Four of a Kind',
+      fullHouse: 'Full House',
+      flush: 'Flush',
+      straight: 'Straight',
+      threeOfAKind: 'Three of a Kind',
+      twoPair: 'Two Pair',
+      onePair: 'One Pair',
+      highCard: 'High Card',
+    },
+    descriptions: {
+      royalFlush: 'A sequência mais alta, todos do mesmo naipe.',
+      straightFlush: 'Cinco cartas em sequência, todas do mesmo naipe.',
+      fourOfAKind: 'Quatro cartas do mesmo valor.',
+      fullHouse: 'Três cartas de um valor e duas de outro.',
+      flush: 'Cinco cartas do mesmo naipe, não em sequência.',
+      straight: 'Cinco cartas em sequência, de naipes diferentes.',
+      threeOfAKind: 'Três cartas do mesmo valor.',
+      twoPair: 'Dois pares de cartas de valores diferentes.',
+      onePair: 'Duas cartas do mesmo valor.',
+      highCard: 'Nenhuma combinação, vale a carta mais alta.',
+    },
+  },
+  simulator: {
+    title: 'Simulador de Situação',
+    subtitle: 'Configure sua situação e receba recomendações profissionais',
+    gameType: 'Tipo de Jogo',
+    gameTypes: {
+      cash: 'Cash Game',
+      tournament: 'Torneio',
+      sitngo: 'Sit&Go',
+    },
+    position: 'Posição',
+    positions: {
+      UTG: 'UTG (Under the Gun)',
+      MP: 'MP (Middle Position)',
+      CO: 'CO (Cutoff)',
+      BTN: 'BTN (Button)',
+      SB: 'SB (Small Blind)',
+      BB: 'BB (Big Blind)',
+    },
+    stack: 'Stack (BB)',
+    players: 'Jogadores na Mesa',
+    startingHand: 'Cartas Iniciais (ex: AKs, 99, QJo)',
+    simulateButton: 'Simular Situação',
+    result: {
+      proTip: 'Pro Tip',
+      action: 'Ação Recomendada:',
+    },
+    // NOVAS CHAVES ADICIONADAS AQUI
+    results: {
+      premiumRaise: 'Mão premium, raise recomendado em qualquer posição.',
+      strongRaise: 'Mão forte em posição avançada (CO/BTN), raise é a melhor opção.',
+      buttonRaise: 'Mão jogável no botão, raise recomendado para tirar vantagem da posição.',
+      pairCall: 'Pares baixos, bom para "set mining" com stack profundo (>=30BB).',
+      blindDefend: 'Mão marginal, pode defender nas blinds contra um raise pequeno.',
+      defaultFold: 'Mão não recomendada para jogar nesta situação (Fold).'
+    },
+  }
 };

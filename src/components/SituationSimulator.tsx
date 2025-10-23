@@ -1,21 +1,11 @@
 import React, { useState } from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
 
-const positions = [
-  { value: 'UTG', label: 'UTG (Under the Gun)' },
-  { value: 'MP', label: 'MP (Middle Position)' },
-  { value: 'CO', label: 'CO (Cutoff)' },
-  { value: 'BTN', label: 'BTN (Button)' },
-  { value: 'SB', label: 'SB (Small Blind)' },
-  { value: 'BB', label: 'BB (Big Blind)' },
-];
+// Usamos as chaves de tradução em vez dos objetos completos
+const positionKeys = ['UTG', 'MP', 'CO', 'BTN', 'SB', 'BB'];
+const gameTypeKeys = ['cash', 'tournament', 'sitngo'];
 
 const stackOptions = [10, 20, 30, 50, 100];
-const gameTypes = [
-  { value: 'cash', label: 'Cash Game' },
-  { value: 'tournament', label: 'Torneio' },
-  { value: 'sitngo', label: 'Sit&Go' },
-];
 
 // Lista simplificada de mãos válidas para autocomplete
 const validHands = [
@@ -47,27 +37,31 @@ const SituationSimulator: React.FC = () => {
     setHandSuggestions(validHands.filter(h => h.startsWith(val) && h !== val));
   };
 
-  // Lógica simples de decisão (exemplo)
+  // Lógica simples de decisão (exemplo) - Usando chaves de tradução
   const simulate = () => {
     let action = 'Fold';
-    let explanation = 'Mão não recomendada nesta posição.';
+    // Assumimos que a chave de fallback está definida na estrutura de i18n
+    let explanationKey = 'simulator.results.defaultFold';
+
     if (['AKs', 'QQ', 'KK', 'AA'].includes(hand) && stack >= 20) {
       action = 'Raise';
-      explanation = 'Mão premium, raise recomendado.';
+      explanationKey = 'simulator.results.premiumRaise';
     } else if (['AQs', 'AJs', 'KQs', 'JTs'].includes(hand) && ['CO', 'BTN'].includes(position)) {
       action = 'Raise';
-      explanation = 'Mão forte em posição avançada, raise recomendado.';
+      explanationKey = 'simulator.results.strongRaise';
     } else if (['AQo', 'KQo', 'QJs'].includes(hand) && position === 'BTN') {
       action = 'Raise';
-      explanation = 'Mão jogável no botão, raise recomendado.';
+      explanationKey = 'simulator.results.buttonRaise';
     } else if (['22', '33', '44', '55', '66'].includes(hand) && stack >= 30) {
       action = 'Call';
-      explanation = 'Pares baixos, bom para set mining com stack profundo.';
+      explanationKey = 'simulator.results.pairCall';
     } else if (['SB', 'BB'].includes(position) && ['A2s', 'K9s', 'Q9s'].includes(hand)) {
       action = 'Call';
-      explanation = 'Mão marginal, pode defender nas blinds.';
+      explanationKey = 'simulator.results.blindDefend';
     }
-    setResult({ action, explanation });
+    
+    // O texto da explicação agora é buscado no arquivo de tradução
+    setResult({ action, explanation: t(explanationKey) });
   };
 
   // Atualiza stack ao selecionar opção rápida
@@ -105,8 +99,17 @@ const SituationSimulator: React.FC = () => {
                 <span className="suit-diamonds"></span>
                 {t('simulator.gameType')}
               </label>
-              <select value={gameType} onChange={e => setGameType(e.target.value)} className="w-full rounded-lg px-4 py-4 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input text-lg min-h-[48px]">
-                {gameTypes.map(gt => <option key={gt.value} value={gt.value}>{t(`simulator.gameTypes.${gt.value}`)}</option>)}
+              <select 
+                value={gameType} 
+                onChange={e => setGameType(e.target.value)} 
+                className="w-full rounded-lg px-4 py-4 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input text-lg min-h-[48px]"
+              >
+                {/* CORREÇÃO: Usando o array de chaves e o t() */}
+                {gameTypeKeys.map(key => (
+                  <option key={key} value={key}>
+                    {t(`simulator.gameTypes.${key}`)}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="flex flex-col">
@@ -114,8 +117,17 @@ const SituationSimulator: React.FC = () => {
                 <span className="suit-clubs"></span>
                 {t('simulator.position')}
               </label>
-              <select value={position} onChange={e => setPosition(e.target.value)} className="w-full rounded-lg px-4 py-4 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input text-lg min-h-[48px]">
-                {positions.map(pos => <option key={pos.value} value={pos.value}>{t(`simulator.positions.${pos.value}`)}</option>)}
+              <select 
+                value={position} 
+                onChange={e => setPosition(e.target.value)} 
+                className="w-full rounded-lg px-4 py-4 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input text-lg min-h-[48px]"
+              >
+                {/* CORREÇÃO: Usando o array de chaves e o t() */}
+                {positionKeys.map(key => (
+                  <option key={key} value={key}>
+                    {t(`simulator.positions.${key}`)}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="flex flex-col">
@@ -224,4 +236,4 @@ const SituationSimulator: React.FC = () => {
   );
 };
 
-export default SituationSimulator; 
+export default SituationSimulator;
