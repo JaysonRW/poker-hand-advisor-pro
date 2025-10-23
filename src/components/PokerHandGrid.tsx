@@ -9,11 +9,33 @@ import { useTranslation } from '@/hooks/useTranslation';
 
 const ranks = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'];
 
+// Chaves de posição para o filtro da UI
+const positionKeys = ['ALL', 'UTG', 'MP', 'CO', 'BTN', 'SB', 'BB']; 
+
 export const PokerHandGrid = () => {
   const { t } = useTranslation();
   const [selectedHand, setSelectedHand] = useState<PokerHand | null>(null);
   const [categoryFilter, setCategoryFilter] = useState<string>('');
+  // NOVO ESTADO: Filtro por Posição (inicialmente 'ALL')
+  const [positionFilter, setPositionFilter] = useState<string>('ALL'); 
   const [currentPage, setCurrentPage] = useState(0);
+
+  // Mapeia a posição individual da UI (UTG, BTN) para o GRUPO de posição usado nos dados (Early Position, Late Position)
+  const mapPositionToGroup = (pos: string): string | null => {
+    switch(pos) {
+      case 'UTG':
+      case 'MP':
+        return 'Early Position'; // Simplificado: UTG e MP no Early Position Group para o range de abertura
+      case 'CO':
+      case 'BTN':
+        return 'Late Position';
+      case 'SB':
+      case 'BB':
+        return 'Blinds';
+      default:
+        return null;
+    }
+  };
   
   const getHandString = (row: number, col: number): string => {
     const rank1 = ranks[row];
@@ -52,6 +74,31 @@ export const PokerHandGrid = () => {
     }
   };
   
+  // NOVA LÓGICA DE COLORAÇÃO POR POSIÇÃO/AÇÃO
+  const getPositionActionColor = (handData: PokerHand, filter: string): string => {
+    if (filter === 'ALL' || !filter) {
+        return getCategoryColor(handData.category);
+    }
+    
+    // 1. Encontra o grupo que a posição do filtro pertence ('Early Position', 'Late Position', etc.)
+    const requiredPositionGroup = mapPositionToGroup(filter);
+
+    if (!requiredPositionGroup) {
+        return 'hand-fold'; // Posição inválida
+    }
+    
+    // 2. Verifica se a mão é jogável nesse grupo (se o grupo estiver listado no array positions da mão)
+    const isPlayable = handData.positions.includes(requiredPositionGroup);
+
+    if (isPlayable) {
+        // Se for jogável, retorna a cor da força da mão
+        return getCategoryColor(handData.category);
+    } 
+    
+    // 3. Se não for jogável, retorna a cor de FOLD, transformando a grade em um mapa de ação/fold.
+    return 'hand-fold';
+  };
+
   const handleCellClick = (row: number, col: number) => {
     const handString = getHandString(row, col);
     const handData = getHandData(handString);
@@ -81,7 +128,31 @@ export const PokerHandGrid = () => {
         <h1 className="text-title font-title text-foreground mb-2">{t('pokerGrid.title')}</h1>
         <p className="text-muted-foreground font-body">{t('pokerGrid.subtitle')}</p>
       </div>
-      {/* Filtro de Categoria */}
+      
+      {/* NOVO FILTRO DE POSIÇÃO */}
+      <div className="mb-4 flex justify-center">
+        <div className="w-full max-w-2xl flex flex-wrap sm:flex-nowrap gap-2 sm:gap-0 overflow-x-auto overflow-y-hidden px-1 scrollbar-hide">
+          <ToggleGroup 
+            type="single" 
+            value={positionFilter} 
+            onValueChange={(value) => setPositionFilter(value || 'ALL')} 
+            className="w-full flex flex-wrap sm:flex-nowrap justify-center"
+          >
+            {positionKeys.map(key => (
+              <ToggleGroupItem 
+                key={`pos-${key}`} 
+                value={key} 
+                className={`mx-0 sm:mx-1 mb-2 sm:mb-0 px-3 sm:px-4 py-2 rounded-lg font-heading text-foreground bg-card/80 transition-all duration-200 text-sm sm:text-base min-w-[60px] 
+                            data-[state=on]:bg-gradient-secondary data-[state=on]:text-primary data-[state=on]:shadow-glow data-[state=on]:scale-105`}
+              >
+                {key === 'ALL' ? t('pokerGrid.filters.all') : key}
+              </ToggleGroupItem>
+            ))}
+          </ToggleGroup>
+        </div>
+      </div>
+      
+      {/* Filtro de Categoria - MANTIDO, mas só é aplicado quando PositionFilter é 'ALL' */}
       <div className="mb-4 flex justify-center">
         <div className="w-full max-w-2xl flex flex-wrap sm:flex-nowrap gap-2 sm:gap-0 overflow-x-auto overflow-y-hidden px-1 scrollbar-hide">
           <ToggleGroup type="single" value={categoryFilter} onValueChange={setCategoryFilter} className="w-full flex flex-wrap sm:flex-nowrap justify-center">
@@ -94,7 +165,8 @@ export const PokerHandGrid = () => {
           </ToggleGroup>
         </div>
       </div>
-      {/* Legend */}
+      
+      {/* Legenda */}
       <div className="mb-6 flex flex-wrap justify-center gap-4 text-sm">
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 hand-premium rounded shadow-glow"></div>
@@ -117,6 +189,7 @@ export const PokerHandGrid = () => {
           <span className="text-foreground font-body">{t('pokerGrid.legend.fold')}</span>
         </div>
       </div>
+      
       {/* Grid */}
       <Card className="p-4 bg-gradient-card border border-border shadow-neumorphism">
         {/* Desktop Grid */}
@@ -125,8 +198,16 @@ export const PokerHandGrid = () => {
             ranks.map((_, colIndex) => {
               const handString = getHandString(rowIndex, colIndex);
               const handData = getHandData(handString);
-              const colorClass = getCategoryColor(handData.category);
-              if (categoryFilter && handData.category !== categoryFilter) return null;
+
+              // Prioriza a coloração por Posição se o filtro de posição estiver ativo
+              const colorClass = getPositionActionColor(handData, positionFilter);
+              
+              // Se o filtro de Categoria estiver ativo (e o filtro de Posição for 'ALL'), aplica o filtro
+              if (positionFilter === 'ALL' && categoryFilter && handData.category !== categoryFilter) {
+                return null;
+              }
+              // Se a mão for marcada como FOLD pelo filtro de Posição, a cor é 'hand-fold'
+
               return (
                 <button
                   key={`${rowIndex}-${colIndex}`}
@@ -190,8 +271,14 @@ export const PokerHandGrid = () => {
                 
                 const handString = getHandString(actualRowIndex, colIndex);
                 const handData = getHandData(handString);
-                const colorClass = getCategoryColor(handData.category);
-                if (categoryFilter && handData.category !== categoryFilter) return null;
+
+                // Prioriza a coloração por Posição se o filtro de posição estiver ativo
+                const colorClass = getPositionActionColor(handData, positionFilter);
+
+                // Aplica o filtro de Categoria apenas se o filtro de Posição for 'ALL'
+                if (positionFilter === 'ALL' && categoryFilter && handData.category !== categoryFilter) {
+                    return null;
+                }
                 
                 return (
                   <button
