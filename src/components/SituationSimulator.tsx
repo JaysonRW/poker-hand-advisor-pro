@@ -103,7 +103,7 @@ const SituationSimulator: React.FC = () => {
                 onChange={e => setGameType(e.target.value)} 
                 className="w-full rounded-lg px-4 py-4 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input text-lg min-h-[48px]"
               >
-                {/* CORREÇÃO: Usando o array de chaves e o t() */}
+                {/* Correção: Usando o array de chaves e o t() */}
                 {gameTypeKeys.map(key => (
                   <option key={key} value={key}>
                     {t(`simulator.gameTypes.${key}`)}
@@ -121,7 +121,7 @@ const SituationSimulator: React.FC = () => {
                 onChange={e => setPosition(e.target.value)} 
                 className="w-full rounded-lg px-4 py-4 bg-card text-foreground border border-border focus:ring-2 focus:ring-accent focus:border-accent transition-all font-input text-lg min-h-[48px]"
               >
-                {/* CORREÇÃO: Usando o array de chaves e o t() */}
+                {/* Correção: Usando o array de chaves e o t() */}
                 {positionKeys.map(key => (
                   <option key={key} value={key}>
                     {t(`simulator.positions.${key}`)}
@@ -201,8 +201,8 @@ const SituationSimulator: React.FC = () => {
           
           <button 
             type="submit" 
-            // CORREÇÃO APLICADA: Trocando 'shadow-glow-accent' por 'shadow-glow' para usar a cor dourada do tema.
-            className="w-full bg-gradient-orange-gold hover:bg-gradient-orange-gold/90 text-white font-heading py-5 px-6 rounded-lg shadow-glow hover:shadow-glow transition-all duration-200 text-lg hover:scale-105 shimmer min-h-[56px]"
+            // CORREÇÃO FINAL: Removido 'shimmer' (causava transparência) e usado 'shadow-glow' (dourado)
+            className="w-full bg-gradient-orange-gold hover:bg-gradient-orange-gold/90 text-white font-heading py-5 px-6 rounded-lg shadow-glow hover:shadow-glow transition-all duration-200 text-lg hover:scale-105 min-h-[56px]"
           >
             <span className="flex items-center justify-center gap-2">
               <span className="suit-hearts"></span>
